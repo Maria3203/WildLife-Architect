@@ -1,3 +1,19 @@
+# Wildlife Architect
+Simularea unui ecosistem dinamic în C++
+
+## Descriere
+Wildlife Architect este un simulator de ecosistem în care entități diverse (prădători, prăzi, plante) interacționează pe o hartă 2D. Proiectul urmărește evoluția unei lumi virtuale, punând accent pe supraviețuire, mișcare și gestionarea resurselor de energie.
+
+### Structură: Folosirea compunerii pentru a defini entități prin clasele Pozitie și Statistici.
+
+### Gestiune Memorie: Implementarea Rule of 3 (Constructor copiere, Operator=, Destructor) pentru controlul resurselor.
+
+### Polimorfism: Ierarhie de clase pentru comportamente diferite (Lup, Iepure, Plantă).
+
+### Logică Netrivială: Algoritmi de mișcare, calculul distanțelor pe grid și randarea hărții în terminal.
+
+## Cum funcționează?
+Programul inițializează o hartă, plasează entitățile și rulează o simulare pe ture. La fiecare pas, entitățile se mișcă și interacționează, starea sistemului fiind afișată vizual în consolă.
 # Nu primesc notă pentru că nu am pus titlu și descriere
 
 ### Folosiți template-ul corespunzător grupei voastre!
