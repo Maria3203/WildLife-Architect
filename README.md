@@ -1,3 +1,4 @@
+
 # Wildlife Architect
 Simularea unui ecosistem dinamic în C++
 
@@ -14,6 +15,7 @@ Wildlife Architect este un simulator de ecosistem în care entități diverse (p
 
 ## Cum funcționează?
 Programul inițializează o hartă, plasează entitățile și rulează o simulare pe ture. La fiecare pas, entitățile se mișcă și interacționează, starea sistemului fiind afișată vizual în consolă.
+
 # Nu primesc notă pentru că nu am pus titlu și descriere
 
 ### Folosiți template-ul corespunzător grupei voastre!
