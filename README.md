@@ -1,3 +1,6 @@
+Proiectul își propune implementarea unui ecosistem dinamic, desfășurat pe o hartă bidimensională, unde diferite entități (animale, plante, resurse) interacționează conform unor reguli de supraviețuire. Obiectivul este de a simula echilibrul biologic: animalele caută hrană, consumă energie pentru mișcare și interacționează cu mediul. Sistemul va pune accent pe mecanismele POO pentru a gestiona comportamente diverse prin polimorfism și compunere, oferind o reprezentare vizuală în consolă a stării sistemului la fiecare "pas" al simulării.
+
+
 # Nu primesc notă pentru că nu am pus titlu și descriere
 
 ### Folosiți template-ul corespunzător grupei voastre!
