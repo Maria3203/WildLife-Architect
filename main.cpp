@@ -1,6 +1,6 @@
 // #include <iostream>
-#include <array>
-#include "include/Example.h"
+// #include <array>
+// #include "include/Example.h"
 // This also works if you do not want `include/`, but some editors might not like it
 // #include "Example.h"
 //
@@ -54,7 +54,7 @@
 //     return 0;
 // }
 #include <iostream>
-
+#include <utility>
 
 enum TipEntitate {
     PRADATOR, PRADA, PLANTA
@@ -66,10 +66,9 @@ private:
     int y;
 
 public:
-    Pozitie(int valX, int valY) {
-        x = valX;
-        y = valY;
-    }
+    explicit Pozitie(int valX = 0, int valY = 0) : x(valX), y(valY) {}
+    [[nodiscard]] int getX() const { return x; }
+    [[nodiscard]]int getY() const { return y; }
 
     friend std::ostream& operator<<(std::ostream& consola, const Pozitie& p) {
         consola << "[" << p.x << ":" << p.y << "]";
@@ -83,7 +82,7 @@ private:
     int foame;
 
 public:
-    Statistici(int e = 100, int f = 0) {
+    explicit Statistici(int e = 100, int f = 0) {
         energie = e;
         foame = f;
     }
@@ -107,15 +106,18 @@ private:
     Statistici stats;
 
 public:
+    [[nodiscard]] int getX() const { return pos.getX(); }
+    [[nodiscard]] int getY() const { return pos.getY(); }
+    [[nodiscard]] char getSimbol() const { return simbol; }
 
     Entitate(std::string n, char s, int x, int y, int e)
-        : nume(n), simbol(s), pos(x, y), stats(e) {}
+        : nume(std::move(n)), simbol(s), pos(x, y), stats(e) {}
 
     Entitate(const Entitate& alta)
        : nume(alta.nume + "_copie"),
          simbol(alta.simbol),
-         pos(alta.pos),    // Initializam direct prin copiere
-         stats(alta.stats) // Initializam direct prin copiere
+         pos(alta.pos),
+         stats(alta.stats)
    {
         std::cout << "[Log] Constructor de copiere apelat pentru " << alta.nume << "\n";
    }
@@ -139,7 +141,7 @@ public:
     void seDeplaseaza(int nouX, int nouY) {
         std::cout << "--- " << nume << " se misca spre (" << nouX << "," << nouY << ") ---\n";
         pos = Pozitie(nouX, nouY);
-        stats.consumaEnergie(10); // Mișcarea obosește animalul
+        stats.consumaEnergie(10);
     }
 
 
@@ -150,12 +152,53 @@ public:
         return consola;
     }
 };
+
+#include <vector>
+
+class Ecosistem {
+private:
+    int latime, inaltime;
+    std::vector<Entitate> entitati;
+
+public:
+    Ecosistem(int l, int i) : latime(l), inaltime(i) {}
+
+    void adaugaAnimal(const Entitate& e) {
+        entitati.push_back(e);
+    }
+
+    void afiseazaLumea() const {
+        for (int i = 0; i < inaltime; ++i) {
+            for (int j = 0; j < latime; ++j) {
+                char simbol = '.';
+                for (const auto& e : entitati) {
+                    if (e.getX() == j && e.getY() == i) {
+                        simbol = e.getSimbol();
+                        break;
+                    }
+                }
+                std::cout << simbol << " ";
+            }
+            std::cout << "\n";
+        }
+    }
+};
 int main() {
     std::cout << "===== Wildlife Architect v0.1 =====\n\n";
+
+    Ecosistem padure(10, 10);
+
     Entitate lup("Lupul Alpha", 'L', 2, 3, 100);
-    std::cout << "Stare initiala:\n" << lup << std::endl;
+    Entitate iepure("Bugs Bunny", 'I', 5, 5, 50);
+
+    padure.adaugaAnimal(lup);
+    padure.adaugaAnimal(iepure);
+
+    std::cout << "Harta Ecosistemului:\n";
+    padure.afiseazaLumea();
+
+    std::cout << "\nDetalii lup inainte de miscare:\n" << lup;
     lup.seDeplaseaza(4, 5);
-    std::cout << "Stare dupa deplasare:\n" << lup << std::endl;
 
     return 0;
 }
