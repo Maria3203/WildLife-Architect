@@ -187,7 +187,6 @@ int main() {
     std::cout << "===== Wildlife Architect v0.1 =====\n\n";
 
     Ecosistem padure(10, 10);
-
     Entitate lup("Lupul Alpha", 'L', 2, 3, 100);
     Entitate iepure("Bugs Bunny", 'I', 5, 5, 50);
 
