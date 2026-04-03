@@ -1,7 +1,36 @@
 
 #include <iostream>
 #include <utility>
+#include <vector>
+#include <fstream>
 
+class JurnalSimulare {
+private:
+    std::ofstream fisierLog;
+    std::string numeFisier;
+
+public:
+    explicit JurnalSimulare(std::string nume = "log.txt")
+        : numeFisier(std::move(nume)) {
+        fisierLog.open(numeFisier, std::ios::app);
+        if (fisierLog.is_open()) {
+            fisierLog << "--- Sesiune noua de simulare inceputa ---\n";
+        }
+    }
+
+    ~JurnalSimulare() {
+        if (fisierLog.is_open()) {
+            fisierLog << "--- Sesiune terminata ---\n\n";
+            fisierLog.close();
+        }
+    }
+
+    void log(const std::string& mesaj) {
+        if (fisierLog.is_open()) {
+            fisierLog << "[LOG]: " << mesaj << "\n";
+        }
+    }
+};
 enum TipEntitate {
     PRADATOR, PRADA, PLANTA
 };
@@ -55,6 +84,7 @@ public:
     [[nodiscard]] int getX() const { return pos.getX(); }
     [[nodiscard]] int getY() const { return pos.getY(); }
     [[nodiscard]] char getSimbol() const { return simbol; }
+    [[nodiscard]] std::string getNume() const { return nume; }
 
     Entitate(std::string n, char s, int x, int y, int e)
         : nume(std::move(n)), simbol(s), pos(x, y), stats(e) {}
@@ -99,18 +129,43 @@ public:
     }
 };
 
-#include <vector>
+
 
 class Ecosistem {
 private:
     int latime, inaltime;
     std::vector<Entitate> entitati;
+    JurnalSimulare jurnal;
 
 public:
-    Ecosistem(int l, int i) : latime(l), inaltime(i) {}
+    explicit Ecosistem(int l = 10, int i = 10) : latime(l), inaltime(i), jurnal("simulare_log.txt") {}
 
+        ~Ecosistem() {
+        std::cout << "Ecosistemul de " << latime << "x" << inaltime << " a fost inchis.\n";
+    }
     void adaugaAnimal(const Entitate& e) {
         entitati.push_back(e);
+        jurnal.log("A fost adaugata entitatea: " + e.getNume());
+    }
+    void incarcaDinFisier(const std::string& numeFisier) {
+        jurnal.log("Inceperea incarcarii din fisier: " + numeFisier);
+        std::ifstream f(numeFisier);
+        if (!f.is_open()) {
+            std::cout << "[Eroare] Nu am putut deschide " << numeFisier << ". Folosesc setari default.\n";
+            return;
+        }
+        int nrEntitati;
+        f >> latime >> inaltime >> nrEntitati;
+
+        for (int i = 0; i < nrEntitati; ++i) {
+            std::string nume;
+            char simbol;
+            int x, y, e;
+            f >> nume >> simbol >> x >> y >> e;
+            entitati.emplace_back(nume, simbol, x, y, e);
+        }
+        f.close();
+        jurnal.log("Incarcare reusita. Latime: " + std::to_string(latime));
     }
 
     void afiseazaLumea() const {
@@ -131,19 +186,10 @@ public:
 };
 int main() {
     std::cout << "===== Wildlife Architect v0.1 =====\n\n";
+    Ecosistem padure;
+    padure.incarcaDinFisier("tastatura.txt");
 
-    Ecosistem padure(10, 10);
-    Entitate lup("Lupul Alpha", 'L', 2, 3, 100);
-    Entitate iepure("Bugs Bunny", 'I', 5, 5, 50);
-
-    padure.adaugaAnimal(lup);
-    padure.adaugaAnimal(iepure);
-
-    std::cout << "Harta Ecosistemului:\n";
+    std::cout << "Harta Ecosistemului Incarcata:\n";
     padure.afiseazaLumea();
-
-    std::cout << "\nDetalii lup inainte de miscare:\n" << lup;
-    lup.seDeplaseaza(4, 5);
-
     return 0;
 }
