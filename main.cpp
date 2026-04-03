@@ -3,6 +3,9 @@
 #include <utility>
 #include <vector>
 #include <fstream>
+#include <string>
+#include <cstdlib>
+#include <ctime>
 
 class JurnalSimulare {
 private:
@@ -147,6 +150,7 @@ public:
         entitati.push_back(e);
         jurnal.log("A fost adaugata entitatea: " + e.getNume());
     }
+
     void incarcaDinFisier(const std::string& numeFisier) {
         jurnal.log("Inceperea incarcarii din fisier: " + numeFisier);
         std::ifstream f(numeFisier);
@@ -167,29 +171,43 @@ public:
         f.close();
         jurnal.log("Incarcare reusita. Latime: " + std::to_string(latime));
     }
+    void actualizeaza() {
+        for (auto& e : entitati) {
+            int nx = e.getX() + (rand() % 3 - 1);
+            int ny = e.getY() + (rand() % 3 - 1);
+            if (nx >= 0 && nx < latime && ny >= 0 && ny < inaltime) {
+                e.seDeplaseaza(nx, ny);
+            }
+        }
+        jurnal.log("Tura procesata.");
+    }
 
-    void afiseazaLumea() const {
+    void afiseaza() const {
         for (int i = 0; i < inaltime; ++i) {
             for (int j = 0; j < latime; ++j) {
-                char simbol = '.';
+                char s = '.';
                 for (const auto& e : entitati) {
-                    if (e.getX() == j && e.getY() == i) {
-                        simbol = e.getSimbol();
-                        break;
-                    }
+                    if (e.getX() == j && e.getY() == i) { s = e.getSimbol(); break; }
                 }
-                std::cout << simbol << " ";
+                std::cout << s << " ";
             }
             std::cout << "\n";
         }
     }
 };
 int main() {
-    std::cout << "===== Wildlife Architect v0.1 =====\n\n";
+    srand(static_cast<unsigned>(time(nullptr)));
+    std::cout << "===== Wildlife Architect v0.1 =====\n";
+
     Ecosistem padure;
     padure.incarcaDinFisier("tastatura.txt");
 
-    std::cout << "Harta Ecosistemului Incarcata:\n";
-    padure.afiseazaLumea();
+    std::cout << "Harta initiala (din fisier):\n";
+    padure.afiseaza();
+
+    std::cout << "\nSimulare in curs...\n";
+    padure.actualizeaza();
+    padure.afiseaza();
+
     return 0;
 }
