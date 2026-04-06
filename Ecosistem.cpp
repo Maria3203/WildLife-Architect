@@ -58,7 +58,7 @@ void Ecosistem::incarcaHarta(const std::string& numeFisier, int modJoc) {
 }
 
 void Ecosistem::ruleazaTura() {
-    // 1. Afișăm Harta prima dată
+
     reprezentare.curata();
     for (const auto& e : populatie) {
         if (e.esteVie()) reprezentare.adauga(e.getX(), e.getY(), e.getSimbol());
@@ -66,12 +66,12 @@ void Ecosistem::ruleazaTura() {
     reprezentare.afiseaza();
     afiseazaStatusJucator();
 
-    // 2. Așteptăm inputul tău (AICI se blochează programul până scrii ceva)
     populatie[indexJucator].deplasareManual(latime, inaltime);
 
-    // 3. Abia după ce te-ai mutat tu, se mută și restul
+
     for (size_t i = 1; i < populatie.size(); ++i) {
-        populatie[i].deplasareAI(latime, inaltime);
+
+        populatie[i].urmaresteSauFuge(populatie, latime, inaltime);
     }
 
     proceseazaInteractiuni();

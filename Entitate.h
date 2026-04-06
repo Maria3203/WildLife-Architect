@@ -5,11 +5,11 @@
 #include <vector>
 #include <string>
 
-// Enumerari pentru a evita "magic numbers" in cod
+
 enum class Gen { Masculin, Feminin, Nedeterminat };
 enum class TipEntitate { Pradator, Prada, Planta };
 
-// --- Clasa Statistici (Compunere) ---
+
 class Statistici {
 private:
     int energie;
@@ -24,7 +24,7 @@ public:
     Statistici(int e = 100, int p = 10, int v = 1, Gen g = Gen::Nedeterminat, int vMax = 20)
         : energie(e), putere(p), viteza(v), varsta(0), varstaMaxima(vMax), gen(g), areFamilie(false) {}
 
-    // Getters const
+
     int getEnergie() const { return energie; }
     int getPutere() const { return putere; }
     int getViteza() const { return viteza; }
@@ -34,17 +34,17 @@ public:
     bool ePreaBatran() const { return varsta >= varstaMaxima; }
     bool poateSaSeReproduca() const { return energie > 70 && areFamilie; }
 
-    // Setters si modificatori
+
     void modificaEnergie(int cantitate) { energie += cantitate; }
     void imbatraneste() { varsta++; putere += 1; }
     void setFamilie(bool stare) { areFamilie = stare; }
     void consumaEnergieReproducere() { energie -= 50; }
 };
 
-// Forward declaration pentru clasa Pozitie (detaliile sunt in .cpp)
+
 class Pozitie;
 
-// --- Clasa Principala Entitate ---
+
 class Entitate {
 private:
     std::string nume;
