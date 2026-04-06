@@ -70,6 +70,7 @@ public:
 
     void deplasareManual(int maxW, int maxH);
     void urmaresteSauFuge(const std::vector<Entitate>& alteEntitati, int maxW, int maxH);
+    void aplicaEfecteTura();
 
 
     void interactioneaza(Entitate& alta);

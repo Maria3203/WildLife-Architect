@@ -179,6 +179,16 @@ bool Entitate::poateVedea(const Entitate& alta) const {
     int distanta = std::abs(this->getX() - alta.getX()) + std::abs(this->getY() - alta.getY());
     return distanta <= 5;
 }
+void Entitate::aplicaEfecteTura() {
+    stats.modificaEnergie(-1);
+    if (stats.getEnergie() > 90) {
+        stats.imbatraneste();
+    }
+
+    if (stats.getVarsta() > 15) {
+        stats.modificaEnergie(-2);
+    }
+}
 std::ostream& operator<<(std::ostream& os, const Entitate& e) {
     os << "[" << e.simbol << "] " << e.nume
        << " | Energie: " << e.stats.getEnergie()

@@ -143,6 +143,16 @@ void Ecosistem::genereazaRaportFinal() const {
     std::cout << "==========================================\n";
 }
 void Ecosistem::afiseazaStatusJucator() const {
-    std::cout << "Jucator: " << populatie[indexJucator] << "\n";
-    std::cout << "Scop: Ajunge la (" << latime-1 << "," << inaltime-1 << ")\n";
+    const auto& j = populatie[indexJucator];
+    int distaX = std::abs((latime - 1) - j.getX());
+    int distaY = std::abs((inaltime - 1) - j.getY());
+    int distantaTotala = distaX + distaY;
+
+    std::cout << "\n================ STATISTICI JUCATOR ================\n";
+    std::cout << " Nume: " << j.getNume() << " | Simbol: " << j.getSimbol() << "\n";
+    std::cout << " Energie: " << j.getStats().getEnergie() << " | Putere: " << j.getStats().getPutere() << "\n";
+    std::cout << " Pozitie curenta: (" << j.getX() << ", " << j.getY() << ")\n";
+    std::cout << " Distanta pana la tinta: " << distantaTotala << " pasi\n";
+    if (distantaTotala < 5) std::cout << " [ALERTA] Esti foarte aproape de finish!\n";
+    std::cout << "====================================================\n";
 }
