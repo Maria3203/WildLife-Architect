@@ -60,24 +60,42 @@ void Ecosistem::incarcaHarta(const std::string& numeFisier, int modJoc) {
 }
 
 void Ecosistem::ruleazaTura() {
-
+    // 1. Curățăm harta și desenăm entitățile vii
     reprezentare.curata();
     for (const auto& e : populatie) {
-        if (e.esteVie()) reprezentare.adauga(e.getX(), e.getY(), e.getSimbol());
+        if (e.esteVie()) {
+            reprezentare.adauga(e.getX(), e.getY(), e.getSimbol());
+        }
     }
+
+    // 2. Afișăm harta și statusul jucătorului pe ecran
     reprezentare.afiseaza();
     afiseazaStatusJucator();
 
+    // 3. Aplicăm logica de stare pentru TOATE entitățile
+    for (auto& e : populatie) {
+        if (e.esteVie()) {
+            e.gestioneazaResurse();
+            e.aplicaEfecteTura();
+        }
+    }
+
+    // 4. Mișcarea Jucătorului (Manual)
     populatie[indexJucator].deplasareManual(latime, inaltime);
 
-
-    for (size_t i = 1; i < populatie.size(); ++i) {
-
+    // 5. Mișcarea celorlalte entități (AI)
+    for (size_t i = 0; i < populatie.size(); ++i) {
+        if (i == (size_t)indexJucator) continue; // Sărim peste jucător, el s-a mișcat deja
         populatie[i].urmaresteSauFuge(populatie, latime, inaltime);
     }
 
-    void proceseazaInteractiuni();
+    // 6. Rezolvăm interacțiunile (Lupte, Familii, Reproducere)
+    proceseazaInteractiuni();
+
+    // 7. Afișăm jurnalul de evenimente sub hartă
     afiseazaIstoric();
+
+    // 8. Incrementăm numărul de ture supraviețuite
     tureSupravietuite++;
 }
 
