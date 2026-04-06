@@ -35,6 +35,7 @@ public:
     bool poateSaSeReproduca() const { return energie > 70 && areFamilie; }
 
 
+
     void modificaEnergie(int cantitate) { energie += cantitate; }
     void imbatraneste() { varsta++; putere += 1; }
     void setFamilie(bool stare) { areFamilie = stare; }
@@ -55,25 +56,29 @@ private:
     std::vector<std::string> inventar;
 
 public:
-    // Constructor (am folosit const std::string& pentru a scapa de warning-uri)
+    bool operator>(const Entitate& alta) const;
+    bool operator==(const Entitate& alta) const;
+    Entitate& operator++();
+
     Entitate(const std::string& n, char s, TipEntitate t, int x, int y, const Statistici& st);
 
-    // --- Rule of 3 (Obligatoriu pentru Tema 1) ---
-    Entitate(const Entitate& alta);            // Constructor de copiere
-    Entitate& operator=(const Entitate& alta); // Operator de atribuire
-    ~Entitate();                               // Destructor
 
-    // --- Logica de Miscare ---
+    Entitate(const Entitate& alta);
+    Entitate& operator=(const Entitate& alta);
+    ~Entitate();
+
+
     void deplasareManual(int maxW, int maxH);
     void urmaresteSauFuge(const std::vector<Entitate>& alteEntitati, int maxW, int maxH);
 
-    // --- Interactiuni si Logica Netriviala ---
+
     void interactioneaza(Entitate& alta);
     bool incearcaFamilie(Entitate& partener);
     bool incearcaReproducere(std::vector<Entitate>& populatie);
     void gestioneazaResurse();
+    bool poateVedea(const Entitate& alta) const;
 
-    // --- Getters si Stare ---
+
     bool esteVie() const;
     int getX() const;
     int getY() const;
@@ -81,8 +86,10 @@ public:
     TipEntitate getTip() const { return tip; }
     const std::string& getNume() const { return nume; }
     Statistici& getStats() { return stats; }
+    const Statistici& getStats() const { return stats; }
 
-    // --- Operator Afisare ---
+
+
     friend std::ostream& operator<<(std::ostream& os, const Entitate& e);
 };
 

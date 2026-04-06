@@ -162,6 +162,23 @@ bool Entitate::incearcaFamilie(Entitate& partener) {
 int Entitate::getX() const { return pos->getX(); }
 int Entitate::getY() const { return pos->getY(); }
 
+bool Entitate::operator>(const Entitate& alta) const {
+    return this->stats.getPutere() > alta.stats.getPutere();
+}
+
+bool Entitate::operator==(const Entitate& alta) const {
+    return this->nume == alta.nume;
+}
+
+Entitate& Entitate::operator++() {
+    this->stats.imbatraneste();
+    this->stats.modificaEnergie(-10);
+    return *this;
+}
+bool Entitate::poateVedea(const Entitate& alta) const {
+    int distanta = std::abs(this->getX() - alta.getX()) + std::abs(this->getY() - alta.getY());
+    return distanta <= 5;
+}
 std::ostream& operator<<(std::ostream& os, const Entitate& e) {
     os << "[" << e.simbol << "] " << e.nume
        << " | Energie: " << e.stats.getEnergie()

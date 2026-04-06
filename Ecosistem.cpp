@@ -1,6 +1,7 @@
 #include "Ecosistem.h"
 #include <iostream>
 #include <algorithm>
+#include <fstream>
 
 Harta::Harta(int _L, int _I) : L(_L), I(_I) {
     grid.resize(I, std::string(L, '.'));
@@ -74,7 +75,7 @@ void Ecosistem::ruleazaTura() {
         populatie[i].urmaresteSauFuge(populatie, latime, inaltime);
     }
 
-    proceseazaInteractiuni();
+    void proceseazaInteractiuni();
 }
 
 void Ecosistem::proceseazaInteractiuni() {
@@ -90,7 +91,7 @@ void Ecosistem::proceseazaInteractiuni() {
                 if (populatie[i].incearcaFamilie(populatie[j])) {
                     std::cout << "[INFO] " << populatie[i].getNume() << " a format o familie cu " << populatie[j].getNume() << "!\n";
                 }
-                populatie[i].interactioneaza(populatie[j]);
+                populatie[i].interactioneaza(populatie[j]);;
             }
         }
     }
@@ -116,7 +117,31 @@ bool Ecosistem::esteFinalizat() const {
     }
     return false;
 }
+void Ecosistem::genereazaRaportFinal() const {
+    if (populatie.empty()) {
+        std::cout << "Nu exista entitati pentru raport.\n";
+        return;
+    }
 
+    const Entitate* ceaMaiPuternica = &populatie[0];
+
+    int nrPradatori = 0;
+    int nrPrada = 0;
+
+    for (const auto& e : populatie) {
+        if (e.getTip() == TipEntitate::Pradator) nrPradatori++;
+        if (e.getTip() == TipEntitate::Prada) nrPrada++;
+
+        if (e.getStats().getPutere() > ceaMaiPuternica->getStats().getPutere()) {
+            ceaMaiPuternica = &e;
+        }
+    }
+
+    std::cout << "Pradatori: " << nrPradatori << " | Prazi: " << nrPrada << "\n";
+    std::cout << "Cea mai puternica entitate: " << ceaMaiPuternica->getNume()
+              << " (Putere: " << ceaMaiPuternica->getStats().getPutere() << ")\n";
+    std::cout << "==========================================\n";
+}
 void Ecosistem::afiseazaStatusJucator() const {
     std::cout << "Jucator: " << populatie[indexJucator] << "\n";
     std::cout << "Scop: Ajunge la (" << latime-1 << "," << inaltime-1 << ")\n";

@@ -28,18 +28,20 @@ private:
 public:
     Ecosistem(int l, int i);
     
-    // Incarcare date (Cerința T1: Fara date in cod)
+
     void incarcaHarta(const std::string& numeFisier, int modJoc);
 
     void ruleazaTura();
+    void proceseazaInteractiuni();
     bool esteFinalizat() const;
     
-    // Logica Netriviala
-    void proceseazaInteractiuni();
+
     bool verificareVictorie() const;
     void afiseazaStatusJucator() const;
+    void genereazaRaportFinal() const;
 
     ~Ecosistem() = default;
 };
+
 
 #endif

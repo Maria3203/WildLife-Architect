@@ -32,6 +32,7 @@ int main() {
     while (!padure.esteFinalizat()) {
         padure.ruleazaTura();
     }
+    padure.genereazaRaportFinal();
 
     std::cout << "========================================\n";
     std::cout << "     JOC TERMINAT!                      \n";
