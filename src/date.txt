@@ -1,4 +1,0 @@
-Lup_Salbatic L 0 10 5 100 20 1 0 50
-Iepure_Mic i 1 5 5 50 5 2 1 30
-Urs_Grizzly U 0 18 8 200 60 1 0 100
-Tufa_Planta P 2 19 9 100 0 0 2 999
