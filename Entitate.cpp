@@ -137,6 +137,7 @@ bool Entitate::incearcaReproducere(std::vector<Entitate>& populatie) {
                        (rand() % 2 == 0 ? Gen::Masculin : Gen::Feminin), 30);
         populatie.emplace_back("Pui_" + nume, tolower(simbol), tip, pos->getX(), pos->getY(), sPui);
         stats.modificaEnergie(-40);
+        stats.consumaEnergieReproducere();
         return true;
     }
     return false;
