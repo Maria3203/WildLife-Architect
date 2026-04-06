@@ -78,6 +78,7 @@ void Entitate::urmaresteSauFuge(const std::vector<Entitate>& alteEntitati, int m
 
     for (const auto& alta : alteEntitati) {
         if (&alta == this || !alta.esteVie()) continue;
+        if (!this->poateVedea(alta)) continue;
 
         double d = std::sqrt(std::pow(pos->getX() - alta.getX(), 2) +
                             std::pow(pos->getY() - alta.getY(), 2));
