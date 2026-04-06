@@ -21,7 +21,7 @@ private:
     bool areFamilie;
 
 public:
-    Statistici(int e = 100, int p = 10, int v = 1, Gen g = Gen::Nedeterminat, int vMax = 20)
+    explicit Statistici(int e = 100, int p = 10, int v = 1, Gen g = Gen::Nedeterminat, int vMax = 20)
         : energie(e), putere(p), viteza(v), varsta(0), varstaMaxima(vMax), gen(g), areFamilie(false) {}
 
 
