@@ -24,7 +24,8 @@ private:
     Harta reprezentare;
     int indexJucator;
     int tureSupravietuite;
-
+    std::vector<std::string> istoricEvenimente;
+    void adaugaEveniment(const std::string& text);
 public:
     Ecosistem(int l, int i);
     
@@ -32,6 +33,7 @@ public:
     void incarcaHarta(const std::string& numeFisier, int modJoc);
 
     void ruleazaTura();
+    void afiseazaIstoric() const;
     void proceseazaInteractiuni();
     bool esteFinalizat() const;
     

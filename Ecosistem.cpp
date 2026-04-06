@@ -56,6 +56,7 @@ void Ecosistem::incarcaHarta(const std::string& numeFisier, int modJoc) {
         populatie.emplace_back(nume, simbol, t, x, y, Statistici(en, put, vit, g, vMax));
     }
     f.close();
+    adaugaEveniment("Harta a fost incarcata cu succes din " + numeFisier);
 }
 
 void Ecosistem::ruleazaTura() {
@@ -76,6 +77,8 @@ void Ecosistem::ruleazaTura() {
     }
 
     void proceseazaInteractiuni();
+    afiseazaIstoric();
+    tureSupravietuite++;
 }
 
 void Ecosistem::proceseazaInteractiuni() {
@@ -89,7 +92,10 @@ void Ecosistem::proceseazaInteractiuni() {
                 populatie[i].getY() == populatie[j].getY()) {
 
                 if (populatie[i].incearcaFamilie(populatie[j])) {
-                    std::cout << "[INFO] " << populatie[i].getNume() << " a format o familie cu " << populatie[j].getNume() << "!\n";
+                    adaugaEveniment(populatie[i].getNume() + " a format o familie!");
+                }
+                if (populatie[i].incearcaReproducere(populatie)) {
+                    adaugaEveniment("S-a nascut un pui nou!");
                 }
                 populatie[i].interactioneaza(populatie[j]);;
             }
@@ -141,6 +147,24 @@ void Ecosistem::genereazaRaportFinal() const {
     std::cout << "Cea mai puternica entitate: " << ceaMaiPuternica->getNume()
               << " (Putere: " << ceaMaiPuternica->getStats().getPutere() << ")\n";
     std::cout << "==========================================\n";
+}
+void Ecosistem::adaugaEveniment(const std::string& text) {
+    std::string mesajComplet = "[Tura " + std::to_string(tureSupravietuite) + "] " + text;
+    istoricEvenimente.push_back(mesajComplet);
+
+    if (istoricEvenimente.size() > 5) {
+        istoricEvenimente.erase(istoricEvenimente.begin());
+    }
+}
+
+void Ecosistem::afiseazaIstoric() const {
+    if (istoricEvenimente.empty()) return;
+
+    std::cout << "\n--- JURNALUL ECOSISTEMULUI ---\n";
+    for (const auto& ev : istoricEvenimente) {
+        std::cout << ev << "\n";
+    }
+    std::cout << "------------------------------\n";
 }
 void Ecosistem::afiseazaStatusJucator() const {
     const auto& j = populatie[indexJucator];
