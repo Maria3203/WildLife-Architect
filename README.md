@@ -2,20 +2,46 @@
 # Wildlife Architect
 Simularea unui ecosistem dinamic în C++
 
-## Descriere
-Wildlife Architect este un simulator de ecosistem în care entități diverse (prădători, prăzi, plante) interacționează pe o hartă 2D. Proiectul urmărește evoluția unei lumi virtuale, punând accent pe supraviețuire, mișcare și gestionarea resurselor de energie.
+Proiectul este o simulare de tip „sandbox” care modelează supraviețuirea și interacțiunea dintre trei forme de viață: Prădători, Prăzi și Resurse (Plante). Scopul este de a observa cum echilibrul fragil al naturii se schimbă în funcție de deciziile individuale ale fiecărei entități.
 
-### Structură: Folosirea compunerii pentru a defini entități prin clasele Pozitie și Statistici.
+# Descrierea proiectului
 
-### Gestiune Memorie: Implementarea Rule of 3 (Constructor copiere, Operator=, Destructor) pentru controlul resurselor.
+1. Ciclul de Viață și Supraviețuirea
+   Fiecare creatură din acest univers virtual este guvernată de un set de nevoi vitale:
 
-### Polimorfism: Ierarhie de clase pentru comportamente diferite (Lup, Iepure, Plantă).
+Energia: Este resursa principală. Orice acțiune (mișcare, vânătoare, reproducere) consumă energie. Dacă aceasta ajunge la zero, entitatea moare.
 
-### Logică Netrivială: Algoritmi de mișcare, calculul distanțelor pe grid și randarea hărții în terminal.
+Bătrânețea: Timpul trece peste toate creaturile. Cu fiecare tură, ele îmbătrânesc, iar odată ce ating o limită biologică, dispar natural din sistem, indiferent de câtă energie mai au.
 
-## Cum funcționează?
-Programul inițializează o hartă, plasează entitățile și rulează o simulare pe ture. La fiecare pas, entitățile se mișcă și interacționează, starea sistemului fiind afișată vizual în consolă.
+Viteza și Puterea: Aceste atribute determină succesul în confruntări. Un animal mai rapid poate scăpa mai ușor, în timp ce unul mai puternic are șanse mai mari să câștige o luptă pentru resurse.
 
+2. Inteligența Artificială (Comportamentul)
+   Creaturile nu se mișcă la întâmplare, ci posedă un instinct de supraviețuire bazat pe raza de vedere:
+
+Instinctul de Vânător: Prădătorii scanează împrejurimile. Dacă detectează o pradă în apropiere, o vor urmări activ pentru a se hrăni și a-și reface energia.
+
+Instinctul de Conservare: Prăzile sunt mereu în alertă. Dacă un prădător intră în câmpul lor vizual, acestea vor încerca imediat să fugă în direcția opusă pentru a evita contactul.
+
+Explorarea: Când nu există nicio amenințare sau sursă de hrană vizibilă, animalele explorează harta în căutarea unor noi oportunități.
+
+3. Interacțiuni și Dinamica Populației
+   Magia simulării stă în momentele în care două entități ocupă același spațiu:
+
+Lanțul Trofic: Contactul dintre un prădător și o pradă rezultă în hrănirea prădătorului (creștere de energie) și eliminarea prăzii.
+
+Sistemul Social: Creaturile de același tip pot forma „familii”. Dacă doi parteneri compatibili se întâlnesc și au suficientă energie, aceștia se pot reproduce, aducând pe lume un pui care moștenește parțial trăsăturile părinților.
+
+Gestiunea Inventarului: Prădătorii pot stoca resurse (hrană) pentru a le folosi mai târziu, în perioade de „foamete”, crescându-și astfel șansele de supraviețuire pe termen lung.
+
+4. Interactivitatea și Observarea
+   Simularea oferă două perspective:
+
+Modul Observator: Poți urmări cum se dezvoltă comunitatea, cine devine specia dominantă și cum evenimentele sunt notate într-un jurnal de bord în timp real.
+
+Modul Jucător: Poți prelua rolul unui animal, având ca obiectiv traversarea hărții către un punct de siguranță (finish), evitând prădătorii și gestionând resursele limitate.
+
+5. Raportul Final
+   La final, sistemul analizează întreaga istorie a simulării și oferă date statistice: cine a fost cea mai puternică entitate, câte ture a durat echilibrul și care a fost cauza principală a declinului populației.at. Acesta procesează datele din ecosistem pentru a identifica "MVP-ul" (cea mai puternică entitate) și oferă statistici despre supraviețuirea speciilor, oferind o imagine de ansamblu asupra echilibrului biologic realizat.
 # Nu primesc notă pentru că nu am pus titlu și descriere
 
 ### Folosiți template-ul corespunzător grupei voastre!
