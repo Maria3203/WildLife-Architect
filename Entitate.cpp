@@ -193,9 +193,7 @@ void Entitate::aplicaEfecteTura() {
 }
 std::ostream& operator<<(std::ostream& os, const Entitate& e) {
     os << "[" << e.simbol << "] " << e.nume
-       << " | Energie: " << e.stats.getEnergie()
-       << " | Putere: " << e.stats.getPutere()
-       << " | Varsta: " << e.stats.getVarsta()
+       << " | " << e.stats
        << " | Inv: " << e.inventar.size();
     return os;
 }

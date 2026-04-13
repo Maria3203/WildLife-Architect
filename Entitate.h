@@ -40,6 +40,11 @@ public:
     void imbatraneste() { varsta++; putere += 1; }
     void setFamilie(bool stare) { areFamilie = stare; }
     void consumaEnergieReproducere() { energie -= 50; }
+
+    friend std::ostream& operator<<(std::ostream& os, const Statistici& s) {
+        os << "E:" << s.energie << "|P:" << s.putere << "|V:" << s.varsta;
+        return os;
+    }
 };
 
 
