@@ -1,4 +1,2 @@
 .github/** linguist-documentation
-CMakeLists.txt linguist-documentation
-*.sh linguist-documentation
 *.txt linguist-documentation

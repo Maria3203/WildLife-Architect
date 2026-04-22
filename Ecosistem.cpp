@@ -198,3 +198,16 @@ void Ecosistem::afiseazaStatusJucator() const {
     if (distantaTotala < 5) std::cout << " [ALERTA] Esti foarte aproape de finish!\n";
     std::cout << "====================================================\n";
 }
+
+std::ostream& operator<<(std::ostream& os, const Ecosistem& eco) {
+    os << "\n========================================\n";
+    os << "   STARE SISTEM: " << eco.latime << "x" << eco.inaltime << "\n";
+    os << "   Entitati vii: " << eco.populatie.size() << "\n";
+    os << "   Ture scurse:  " << eco.tureSupravietuite << "\n";
+
+    if (!eco.populatie.empty()) {
+        os << "   Ultimul eveniment notabil: " << eco.populatie[0] << "\n";
+    }
+    os << "========================================\n";
+    return os;
+}

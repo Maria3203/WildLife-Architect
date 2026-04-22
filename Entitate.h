@@ -95,7 +95,6 @@ public:
     const Statistici& getStats() const { return stats; }
 
 
-
     friend std::ostream& operator<<(std::ostream& os, const Entitate& e);
 };
 

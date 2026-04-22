@@ -43,6 +43,7 @@ public:
     void genereazaRaportFinal() const;
 
     ~Ecosistem() = default;
+    friend std::ostream& operator<<(std::ostream& os, const Ecosistem& eco);
 };
 
 

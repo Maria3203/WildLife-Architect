@@ -30,6 +30,7 @@ int main() {
     padure.incarcaHarta("date.txt", optiune);
 
     while (!padure.esteFinalizat()) {
+        std::cout << padure << std::endl;
         padure.ruleazaTura();
     }
     padure.genereazaRaportFinal();
