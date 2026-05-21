@@ -1,47 +1,55 @@
 
-# Wildlife Architect
-Simularea unui ecosistem dinamic în C++
+# WildLife Architect
 
-Proiectul este o simulare de tip „sandbox” care modelează supraviețuirea și interacțiunea dintre trei forme de viață: Prădători, Prăzi și Resurse (Plante). Scopul este de a observa cum echilibrul fragil al naturii se schimbă în funcție de deciziile individuale ale fiecărei entități.
+**Simulator dinamic de supraviețuire și evoluție a ecosistemului**
 
-# Descrierea proiectului
+## Descrierea Proiectului
 
-1. Ciclul de Viață și Supraviețuirea
-   Fiecare creatură din acest univers virtual este guvernată de un set de nevoi vitale:
+**WildLife Architect** este un joc de simulare a unui ecosistem bazat pe o grilă, în care jucătorul trebuie să supraviețuiască o călătorie de la punctul de Start până la Finish. Proiectul ilustrează lupta pentru supraviețuire prin implementarea a două moduri de joc distincte: **Pradă** și **Prădător**. Fiecare entitate de pe hartă are propriul comportament, un sistem de inventar, trăsături de reproducere și mecanici sociale complexe, oferind o experiență de joc emergentă și strategică.
 
-Energia: Este resursa principală. Orice acțiune (mișcare, vânătoare, reproducere) consumă energie. Dacă aceasta ajunge la zero, entitatea moare.
+## Mecanici Principale de Joc
 
-Bătrânețea: Timpul trece peste toate creaturile. Cu fiecare tură, ele îmbătrânesc, iar odată ce ating o limită biologică, dispar natural din sistem, indiferent de câtă energie mai au.
+### 1. Rolurile și Modurile de Joc
 
-Viteza și Puterea: Aceste atribute determină succesul în confruntări. Un animal mai rapid poate scăpa mai ușor, în timp ce unul mai puternic are șanse mai mari să câștige o luptă pentru resurse.
+Jucătorul își poate alege tabăra, fiecare având un stil de joc complet diferit:
 
-2. Inteligența Artificială (Comportamentul)
-   Creaturile nu se mișcă la întâmplare, ci posedă un instinct de supraviețuire bazat pe raza de vedere:
+* **Prada:** Obiectivul principal este evaziunea și culegerea de resurse. Trebuie să navigheze harta, consumând ferigi sau fructe bune pentru energie.
+* **Prădătorul:** Supraviețuiește prin vânătoare. Poate consuma prada imediat sau o poate stoca în inventar pentru momentele critice.
 
-Instinctul de Vânător: Prădătorii scanează împrejurimile. Dacă detectează o pradă în apropiere, o vor urmări activ pentru a se hrăni și a-și reface energia.
+### 2. Sistemul de Inventar și Combat (Luptă/Supraviețuire)
 
-Instinctul de Conservare: Prăzile sunt mereu în alertă. Dacă un prădător intră în câmpul lor vizual, acestea vor încerca imediat să fugă în direcția opusă pentru a evita contactul.
+* **Capcana otrăvitoare (Pradă):** Prada poate colecta intenționat fructe rele/otrăvitoare în inventar. Dacă este prinsă de un prădător, prada poate folosi fructul otrăvitor ca ultimă linie de apărare, ucigând prădătorul și salvându-se.
+* **Sistemul de Putere (Prădători):** La întâlnirea dintre doi prădători, aceștia se pot ataca. Entitatea cu "puterea" mai mare câștigă, ucide adversarul și îi preia atât inventarul, cât și punctele de putere.
+* **Diplomația (Prădători):** În loc să atace, jucătorul poate alege "pacea". Această decizie creează o legătură: la fiecare întâlnire viitoare cu acea entitate, vor exista beneficii reciproce (transfer de o parte din energie și obiecte).
 
-Explorarea: Când nu există nicio amenințare sau sursă de hrană vizibilă, animalele explorează harta în căutarea unor noi oportunități.
+### 3. Dinamica Socială și Reproducerea
 
-3. Interacțiuni și Dinamica Populației
-   Magia simulării stă în momentele în care două entități ocupă același spațiu:
+Toate entitățile (atât prada, cât și prădătorii) au un gen atribuit (**M** sau **F**). Jocul include un sistem avansat de perpetuare a speciei:
 
-Lanțul Trofic: Contactul dintre un prădător și o pradă rezultă în hrănirea prădătorului (creștere de energie) și eliminarea prăzii.
+* **Curtarea:** Când două entități de aceeași specie, dar de sexe opuse, se întâlnesc, masculul îi poate oferi femelei 2 obiecte din inventar.
+* **Decizia:** Femela poate accepta sau respinge "darul". Dacă este acceptat, se întemeiază o familie și se spawnează un **pui**.
+* **Sinergia Familiei:** Legăturile de familie sunt permanente. Ori de câte ori jucătorul se întâlnește pe hartă cu un membru al familiei sale (partener sau copil), are loc un schimb reciproc benefic în care își împart la jumătate energia și obiectele din inventar, asigurând supraviețuirea grupului.
 
-Sistemul Social: Creaturile de același tip pot forma „familii”. Dacă doi parteneri compatibili se întâlnesc și au suficientă energie, aceștia se pot reproduce, aducând pe lume un pui care moștenește parțial trăsăturile părinților.
+## Condiția de Victorie
 
-Gestiunea Inventarului: Prădătorii pot stoca resurse (hrană) pentru a le folosi mai târziu, în perioade de „foamete”, crescându-și astfel șansele de supraviețuire pe termen lung.
+Jucătorul începe de la punctul de Start și câștigă jocul dacă reușește să atingă punctul de Finish viu, gestionându-și inteligent resursele, relațiile și confruntările.
 
-4. Interactivitatea și Observarea
-   Simularea oferă două perspective:
+## Dicționarul Jocului (Simboluri pe hartă)
 
-Modul Observator: Poți urmări cum se dezvoltă comunitatea, cine devine specia dominantă și cum evenimentele sunt notate într-un jurnal de bord în timp real.
+Fiecare entitate este reprezentată vizual printr-un cod, însoțit de sufixul de gen (_M pentru mascul, _F pentru femelă).
 
-Modul Jucător: Poți prelua rolul unui animal, având ca obiectiv traversarea hărții către un punct de siguranță (finish), evitând prădătorii și gestionând resursele limitate.
+| Categorie | Specie | Simbol Hartă (Exemplu Mascul/Femelă) |
+| --- | --- | --- |
+| **Pradă** | Pasăre | pa_M / pa_F |
+|  | Iepure | ie_M / ie_F |
+|  | Veveriță | ve_M / ve_F |
+|  | Căprioară | ca_M / ca_F |
+| **Prădător** | Urs | U_M / U_F |
+|  | Lup | L_M / L_F |
+|  | Uliu | UL_M / UL_F |
+|  | Vulpe | V_M / V_F |
 
-5. Raportul Final
-   La final, sistemul analizează întreaga istorie a simulării și oferă date statistice: cine a fost cea mai puternică entitate, câte ture a durat echilibrul și care a fost cauza principală a declinului populației.at. Acesta procesează datele din ecosistem pentru a identifica "MVP-ul" (cea mai puternică entitate) și oferă statistici despre supraviețuirea speciilor, oferind o imagine de ansamblu asupra echilibrului biologic realizat.
+
 # Nu primesc notă pentru că nu am pus titlu și descriere
 
 ### Folosiți template-ul corespunzător grupei voastre!

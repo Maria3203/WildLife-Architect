@@ -1,4 +1,4 @@
-#include "Entitate.h"
+#include "../Entitate.h"
 #include <iostream>
 #include <cmath>
 #include <algorithm>

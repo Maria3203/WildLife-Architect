@@ -5,11 +5,7 @@ cmake_minimum_required(VERSION 3.26)
 set(MAIN_PROJECT_NAME "oop")
 set(MAIN_EXECUTABLE_NAME "${MAIN_PROJECT_NAME}")
 
-
 project(${MAIN_PROJECT_NAME})
-# set(CMAKE_PROJECT_VERSION_MAJOR 0)
-# set(CMAKE_PROJECT_VERSION_MINOR 0)
-# set(CMAKE_PROJECT_VERSION_PATCH 1)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -20,73 +16,41 @@ include(cmake/CompilerFlags.cmake)
 include(cmake/CopyHelper.cmake)
 
 ###############################################################################
-
-# external dependencies with FetchContent
-# include(FetchContent)
-#
-# set(FETCHCONTENT_QUIET OFF CACHE INTERNAL "Override verbose output" FORCE)
-# set(FETCHCONTENT_UPDATES_DISCONNECTED ON CACHE INTERNAL "Override update strategy" FORCE)
-#
-# NOTE: Also update env vars used for caching in
-#     - .github/actions/configure-cmake/action.yml
-#     - .github/workflows/cmake.yml
-# FetchContent_Declare(
-#     SomeLib
-#     GIT_REPOSITORY https://github.com/<SomeUser>/<SomeLib>.git
-#     GIT_TAG        <some_git_hash> # <which tag/branch @ <some_date>>
-#     GIT_SHALLOW    1  # works only with branches or tags, not with arbitrary commit hashes
-#     GIT_PROGRESS   ON
-# )
-#
-# FetchContent_MakeAvailable(SomeLib)
-
-###############################################################################
-
-# external dependencies with find_package
-
-# find_package(Threads REQUIRED)
-
+# (Secțiunea de FetchContent și find_package rămâne comentată așa cum era)
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
+# AICI AM MODIFICAT: Am lăsat STRICT fișierele .cpp din TEMA_2. Tema 1 este complet izolată!
 add_executable(${MAIN_EXECUTABLE_NAME}
-    main.cpp
-        Entitate.h
-        Entitate.cpp
-        Ecosistem.h
-        Ecosistem.cpp
+        "TEMA_2/main.cpp"
+        "TEMA_2/src/Entitate.cpp"
+        "TEMA_2/src/Animal.cpp"
+        "TEMA_2/src/Pradator.cpp"
+        "TEMA_2/src/Prada.cpp"
+        "TEMA_2/src/Planta.cpp"
+        "TEMA_2/src/Ecosistem.cpp"
 )
 
-
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
-# NOTE: RUN_SANITIZERS is optional, if it's not present it will default to true
 set_compiler_flags(RUN_SANITIZERS ${USE_ASAN} TARGET_NAMES ${MAIN_EXECUTABLE_NAME})
-# set_compiler_flags(TARGET_NAMES ${MAIN_EXECUTABLE_NAME} ${FOO} ${BAR})
-# where ${FOO} and ${BAR} represent additional executables or libraries
-# you want to compile with the set compiler flags
 
 ###############################################################################
 
 # use SYSTEM so cppcheck and clang-tidy do not report warnings from these directories
+# AICI AM MODIFICAT: Îi spunem compilatorului unde sunt headerele noastre noi (.hpp)
 target_include_directories(${MAIN_EXECUTABLE_NAME} PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+        $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/TEMA_2/include>
 )
 target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE
-    ext
+        ext
 )
-# target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE ${<SomeLib>_SOURCE_DIR}/include)
-# target_link_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${<SomeLib>_BINARY_DIR}/lib)
-# target_link_libraries(${MAIN_EXECUTABLE_NAME} <SomeLib>)
 
 ###############################################################################
 
 # copy binaries to "bin" folder; these are uploaded as artifacts on each release
-# DESTINATION_DIR is set as "bin" in cmake/Options.cmake:6
 install(TARGETS ${MAIN_EXECUTABLE_NAME} DESTINATION ${DESTINATION_DIR})
 if(APPLE)
     install(FILES launcher.command DESTINATION ${DESTINATION_DIR})
 endif()
 
 copy_files(FILES tastatura.txt DIRECTORY assets COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
-# copy_files(FILES tastatura.txt config.json DIRECTORY images sounds COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
-# copy_files(DIRECTORY images sounds COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})

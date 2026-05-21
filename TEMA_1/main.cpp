@@ -30,6 +30,9 @@ int main() {
     padure.incarcaHarta("date.txt", optiune);
 
     while (!padure.esteFinalizat()) {
+        // În loc de system("cls"), folosește asta:
+        std::cout << "\033[2J\033[1;1H";
+
         std::cout << padure << std::endl;
         padure.ruleazaTura();
     }
