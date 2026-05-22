@@ -20,7 +20,7 @@ void creeazaPuiAdiacent(const std::string& specie, int x, int y, MatriceHarta& h
     for (int i = 0; i < 8; ++i) {
         int nx = x + dx[i];
         int ny = y + dy[i];
-        if (nx >= 0 && nx < harti.size() && ny >= 0 && ny < harti.size()) {
+        if (nx >= 0 && nx < static_cast<int>(harti.size()) && ny >= 0 && ny < static_cast<int>(harti.size())) {
             if (!harti[nx][ny]) {
                 if (specie == "Lup") harti[nx][ny] = std::make_shared<Lup>(nx, ny, sexPui);
                 else if (specie == "Vulpe") harti[nx][ny] = std::make_shared<Vulpe>(nx, ny, sexPui);
