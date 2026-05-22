@@ -10,12 +10,12 @@ Animal::Animal(int x, int y, int energie, std::string numeSpecie, char sex_param
 
 }
 
-bool Animal::estePrieten(int id) const {
-    return std::find(listaPrieteni.begin(), listaPrieteni.end(), id) != listaPrieteni.end();
+bool Animal::estePrieten(int nouId) const {
+    return std::find(listaPrieteni.begin(), listaPrieteni.end(), nouId) != listaPrieteni.end();
 }
 
-bool Animal::esteDusman(int id) const {
-    return std::find(listaDusmani.begin(), listaDusmani.end(), id) != listaDusmani.end();
+bool Animal::esteDusman(int nouId) const {
+    return std::find(listaDusmani.begin(), listaDusmani.end(), nouId) != listaDusmani.end();
 }
 
 void Animal::adaugaPrieten(int nouId) {
