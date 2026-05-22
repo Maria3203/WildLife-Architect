@@ -48,8 +48,10 @@ Fiecare entitate este reprezentată vizual printr-un cod, însoțit de sufixul d
 |  | Lup | L_M / L_F |
 |  | Uliu | UL_M / UL_F |
 |  | Vulpe | V_M / V_F |
-
-
+|  **Planta** | Feriga | Fe
+|  |Fruct Bun | FB
+|  | Fruct Otravitor | FO
+ 
 # Nu primesc notă pentru că nu am pus titlu și descriere
 
 ### Folosiți template-ul corespunzător grupei voastre!

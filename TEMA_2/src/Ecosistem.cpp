@@ -3,6 +3,7 @@
 #include "../include/SpeciiPradatori.hpp"
 #include "../include/SpeciiPrazi.hpp"
 #include "../include/SpeciiPlante.hpp"
+#include "../include/Exceptii.hpp"
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
@@ -111,6 +112,9 @@ void Ecosistem::curataEcranul() const {
 }
 
 void Ecosistem::initJoc(int categorieJoc, int selectieAnimal, char sexJucator) {
+    if (categorieJoc != 1 && categorieJoc != 2) {
+        throw ExceptieSetariJoc("Categoria jocului trebuie sa fie 1 (Pradator) sau 2 (Prada)!");
+    }
     std::srand(std::time(nullptr));
 
     if (categorieJoc == 1) {
@@ -314,6 +318,9 @@ void Ecosistem::ruleazaJoc() {
     int invGoodFruit = 0;
     int invBadFruit = 0;
     bool estePrada = (std::dynamic_pointer_cast<Prada>(jucator) != nullptr);
+    if (!jucator) {
+        throw ExceptieLogicaJoc("Jucatorul nu a fost initializat! Apeleaza initJoc inainte.");
+    }
 
     while (jocInDesfasurare) {
         curataEcranul();

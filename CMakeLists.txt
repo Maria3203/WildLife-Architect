@@ -29,6 +29,7 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         "TEMA_2/src/Prada.cpp"
         "TEMA_2/src/Planta.cpp"
         "TEMA_2/src/Ecosistem.cpp"
+        "TEMA_2/src/Exceptii.cpp"
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )

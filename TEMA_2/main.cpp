@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "include/Ecosistem.hpp"
+#include "../include/Exceptii.hpp"
 
 int main() {
     char alegereReplay;
@@ -12,7 +13,7 @@ int main() {
         std::system("clear");
 #endif
 
-        std::cout << "=== BINE AI VENIT IN SIMULATORUL DE ECOSISTEM ===\n";
+        std::cout << "=== WILDLIFE ARCHITECT ===\n";
 
         int categorieJoc;
         int selectieAnimal;
@@ -45,5 +46,21 @@ int main() {
     } while (alegereReplay == 'D');
 
     std::cout << "\n[!] Ecosistemul a fost inchis. La revedere!\n";
+    try {
+        // Aici cream ecosistemul (poți testa cu dim = 3 ca să vezi cum pică pe catch)
+        Ecosistem eco(20);
+
+        eco.initJoc(1, 1, 'M'); // 1 = Pradator, 1 = Lup
+        eco.ruleazaJoc();
+
+    } catch (const ExceptieSetariJoc& e) {
+        std::cerr << "\n[EROARE FATALA INIT] " << e.what() << "\nJocul se va inchide.\n";
+    } catch (const ExceptieLogicaJoc& e) {
+        std::cerr << "\n[EROARE FATALA LOGICA] " << e.what() << "\nJocul se va inchide.\n";
+    } catch (const EcosistemException& e) {
+        std::cerr << "\n[EROARE JOC] " << e.what() << "\n";
+    } catch (const std::exception& e) {
+        std::cerr << "\n[EROARE STANDARD] " << e.what() << "\n";
+    }
     return 0;
 }
