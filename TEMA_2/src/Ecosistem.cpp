@@ -382,8 +382,10 @@ void Ecosistem::ruleazaJoc() {
             }
 
             int nX = vechiX, nY = vechiY;
-            if (optiune == 'W') nX -= pas; if (optiune == 'S') nX += pas;
-            if (optiune == 'A') nY -= pas; if (optiune == 'D') nY += pas;
+            if (optiune == 'W') nX -= pas;
+            if (optiune == 'S') nX += pas;
+            if (optiune == 'A') nY -= pas;
+            if (optiune == 'D') nY += pas;
 
             nX = std::max(0, std::min(dimensiune - 1, nX));
             nY = std::max(0, std::min(dimensiune - 1, nY));
