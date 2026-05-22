@@ -47,7 +47,6 @@ public:
     void modificaEnergie(int cantitate);
     void setPozitie(int nouX, int nouY);
 
-    static int getTotalEntitatiCreate() { return contorID; }
 
     friend std::ostream& operator<<(std::ostream& os, const Entitate& entitate);
 };
