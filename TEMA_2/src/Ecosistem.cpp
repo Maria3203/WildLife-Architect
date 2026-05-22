@@ -54,7 +54,6 @@ void executaMiscareAleatorieAI(Animal* animal, const MatriceHarta& harti) {
     int dy[] = {0, 0, -1, 1};
     int dir = std::rand() % 4;
 
-    int n = harti.size();
     int nx = animal->getX() + dx[dir];
     int ny = animal->getY() + dy[dir];
 

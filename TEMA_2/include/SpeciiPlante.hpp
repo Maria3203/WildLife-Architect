@@ -2,6 +2,8 @@
 #define OOP_SPECIIPLANTE_HPP
 
 #include "Planta.hpp"
+#include <ostream>
+#include <string>
 
 class Feriga : public Planta {
 protected:
