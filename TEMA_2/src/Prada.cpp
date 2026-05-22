@@ -2,7 +2,7 @@
 #include "../include/Pradator.hpp"
 #include <memory>
 
-Prada::Prada(int x, int y, int energie, std::string numeSpecie, char sex, int valoare)
+Prada::Prada(int x, int y, int energie, const std::string& numeSpecie, char sex, int valoare)
     : Animal(x, y, energie, numeSpecie, sex),
       valoareNutritiva(valoare),
       tureAlergate(0),
@@ -23,7 +23,7 @@ void Prada::actualizeazaOboseala() {
             esteObosita = true;
             tureAlergate = 0;
         }
-    } else if (esteObosita) {
+    } else {
         esteObosita = false;
     }
 }

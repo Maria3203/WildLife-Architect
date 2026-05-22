@@ -10,8 +10,8 @@ protected:
     bool inspectata;
 
 public:
-    Planta(int x, int y, int energie, std::string numeSpecie, int bonus, bool otrava);
-    virtual ~Planta() = default;
+    Planta(int x, int y, int energie, const std::string& numeSpecie, int bonus, bool otrava);
+    ~Planta() override = default;
 
     int getBonusEnergie() const { return bonusEnergie; }
 

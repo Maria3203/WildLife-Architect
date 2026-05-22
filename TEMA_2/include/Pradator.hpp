@@ -8,8 +8,8 @@ protected:
     int dauneAtac;
 
 public:
-    Pradator(int x, int y, int energie, std::string numeSpecie, char sex, int daune);
-    virtual ~Pradator() = default;
+    Pradator(int x, int y, int energie, const std::string& numeSpecie, char sex, int daune);
+    ~Pradator() override = default;
 
     int calculeazaPutere() const override { return energie + dauneAtac + (experienta * 2); }
 

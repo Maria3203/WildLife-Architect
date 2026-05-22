@@ -19,8 +19,8 @@ protected:
     std::vector<std::string> inventarMancare;
 
 public:
-    Animal(int x, int y, int energie, std::string numeSpecie, char sex);
-    virtual ~Animal() = default;
+    Animal(int x, int y, int energie, const std::string& numeSpecie, char sex);
+    ~Animal() override = default;
 
 
     virtual int calculeazaPutere() const = 0;

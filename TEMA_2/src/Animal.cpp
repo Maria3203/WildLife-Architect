@@ -1,7 +1,7 @@
 #include "../include/Animal.hpp"
 #include <algorithm>
 
-Animal::Animal(int x, int y, int energie, std::string numeSpecie, char sex_param)
+Animal::Animal(int x, int y, int energie, const std::string &numeSpecie, char sex_param)
     : Entitate(x, y, energie, numeSpecie, sex_param),
       experienta(0),
       varsta(0) {

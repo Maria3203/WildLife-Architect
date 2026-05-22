@@ -26,7 +26,7 @@ protected:
     virtual void doAfiseaza(std::ostream& os) const = 0;
 
 public:
-    Entitate(int x, int y, int energie, std::string numeSpecie, char sex);
+    Entitate(int x, int y, int energie,const std::string& numeSpecie, char sex);
     virtual ~Entitate() = default;
 
     virtual std::shared_ptr<Entitate> clone() const = 0;
@@ -41,7 +41,7 @@ public:
     int getY() const { return y; }
     int getEnergie() const { return energie; }
     char getSex() const { return sex; }
-    std::string getNumeSpecie() const { return numeSpecie; }
+    const std::string& getNumeSpecie() const { return numeSpecie; }
 
     void modificaEnergie(int cantitate);
     void setPozitie(int nouX, int nouY);

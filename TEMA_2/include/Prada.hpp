@@ -10,8 +10,8 @@ protected:
     bool esteObosita;
 
 public:
-    Prada(int x, int y, int energie, std::string numeSpecie, char sex, int valoare);
-    virtual ~Prada() = default;
+    Prada(int x, int y, int energie, const std::string& numeSpecie, char sex, int valoare);
+    ~Prada() override = default;
 
     int calculeazaPutere() const override { return energie + experienta; }
 
