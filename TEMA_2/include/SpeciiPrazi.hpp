@@ -2,6 +2,8 @@
 #define OOP_SPECIIPRAZI_HPP
 
 #include "Prada.hpp"
+#include <ostream>
+#include <string>
 
 class Iepure : public Prada {
 protected:

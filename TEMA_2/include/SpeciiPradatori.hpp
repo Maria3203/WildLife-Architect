@@ -2,7 +2,8 @@
 #define OOP_SPECIIPRADATORI_HPP
 
 #include "Pradator.hpp"
-
+#include <ostream>
+#include <string>
 class Lup : public Pradator {
 protected:
     void doAfiseaza(std::ostream& os) const override { os << (getSex() == 'M' ? "LM" : "LF"); }
