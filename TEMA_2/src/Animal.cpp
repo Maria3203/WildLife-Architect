@@ -1,7 +1,5 @@
-
-
 #include "../include/Animal.hpp"
-#include <algorithm> // Pentru std::find
+#include <algorithm>
 
 Animal::Animal(int x, int y, int energie, std::string numeSpecie, char sex_param)
     : Entitate(x, y, energie, numeSpecie, sex_param),
@@ -10,22 +8,23 @@ Animal::Animal(int x, int y, int energie, std::string numeSpecie, char sex_param
 
 }
 
-bool Animal::estePrieten(int nouId) const {
-    return std::find(listaPrieteni.begin(), listaPrieteni.end(), nouId) != listaPrieteni.end();
+// Am schimbat 'nouId' in 'idCautat' / 'idAdaugat' pt a nu se mai suprapune absolut niciodata cu variabilele din clase
+bool Animal::estePrieten(int idCautat) const {
+    return std::find(listaPrieteni.begin(), listaPrieteni.end(), idCautat) != listaPrieteni.end();
 }
 
-bool Animal::esteDusman(int nouId) const {
-    return std::find(listaDusmani.begin(), listaDusmani.end(), nouId) != listaDusmani.end();
+bool Animal::esteDusman(int idCautat) const {
+    return std::find(listaDusmani.begin(), listaDusmani.end(), idCautat) != listaDusmani.end();
 }
 
-void Animal::adaugaPrieten(int nouId) {
-    if (!estePrieten(nouId)) {
-        listaPrieteni.push_back(nouId);
+void Animal::adaugaPrieten(int idAdaugat) {
+    if (!estePrieten(idAdaugat)) {
+        listaPrieteni.push_back(idAdaugat);
     }
 }
 
-void Animal::adaugaDusman(int nouId) {
-    if (!esteDusman(nouId)) {
-        listaDusmani.push_back(nouId);
+void Animal::adaugaDusman(int idAdaugat) {
+    if (!esteDusman(idAdaugat)) {
+        listaDusmani.push_back(idAdaugat);
     }
 }

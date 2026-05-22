@@ -14,7 +14,7 @@ class Entitate {
 private:
     static int contorID;
 
-    int nouId;
+    int id_;
     std::string numeSpecie;
     char sex;
 
@@ -36,12 +36,11 @@ public:
 
     void afiseaza(std::ostream& os) const;
 
-
+    int getId() const { return id_; }
     int getX() const { return x; }
     int getY() const { return y; }
     int getEnergie() const { return energie; }
     char getSex() const { return sex; }
-    int getId() const { return nouId; }
     std::string getNumeSpecie() const { return numeSpecie; }
 
     void modificaEnergie(int cantitate);

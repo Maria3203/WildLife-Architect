@@ -22,7 +22,6 @@ public:
     Animal(int x, int y, int energie, std::string numeSpecie, char sex);
     virtual ~Animal() = default;
 
-    const std::vector<std::string>& getInventar() const { return inventarMancare; }
     void adaugaInInventar(const std::string& obiect) { inventarMancare.push_back(obiect); }
 
     virtual int calculeazaPutere() const = 0;
@@ -32,8 +31,8 @@ public:
     void imbatraneste() { varsta++; energie -= 2; }
     void acumuleazaExperienta(int exp) { experienta += exp; }
 
-    bool estePrieten(int nouId) const;
-    bool esteDusman(int nouId) const;
-    void adaugaPrieten(int nouId);
-    void adaugaDusman(int nouId);
+    bool estePrieten(int idCautat) const;
+    bool esteDusman(int idCautat) const;
+    void adaugaPrieten(int idAdaugat);
+    void adaugaDusman(int idAdaugat);
 };

@@ -4,7 +4,7 @@
 int Entitate::contorID = 0;
 
 Entitate::Entitate(int x, int y, int energie, std::string numeSpecie, char sex)
-    : nouId(++contorID), numeSpecie(numeSpecie), sex(sex), x(x), y(y), energie(energie) {}
+    : id_(++contorID), numeSpecie(numeSpecie), sex(sex), x(x), y(y), energie(energie) {}
 
 void Entitate::afiseaza(std::ostream& os) const {
     doAfiseaza(os);

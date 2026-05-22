@@ -14,7 +14,6 @@ public:
     virtual ~Planta() = default;
 
     int getBonusEnergie() const { return bonusEnergie; }
-    bool getEsteOtravitoare() const { return esteOtravitoare; }
     bool aFostInspectata() const { return inspectata; }
 
 
