@@ -23,8 +23,4 @@ void Animal::adaugaPrieten(int idAdaugat) {
     }
 }
 
-void Animal::adaugaDusman(int idAdaugat) {
-    if (!esteDusman(idAdaugat)) {
-        listaDusmani.push_back(idAdaugat);
-    }
-}
+

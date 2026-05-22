@@ -13,16 +13,12 @@ public:
     Prada(int x, int y, int energie, std::string numeSpecie, char sex, int valoare);
     virtual ~Prada() = default;
 
-
-    bool getEsteObosita() const { return esteObosita; }
-    
     int calculeazaPutere() const override { return energie + experienta; }
 
 
     bool esteAmenintare(const std::shared_ptr<Entitate>& alta) const override;
 
     void actualizeazaOboseala();
-    void forteazaAlergare();
 };
 
 

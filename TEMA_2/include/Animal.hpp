@@ -22,7 +22,6 @@ public:
     Animal(int x, int y, int energie, std::string numeSpecie, char sex);
     virtual ~Animal() = default;
 
-    void adaugaInInventar(const std::string& obiect) { inventarMancare.push_back(obiect); }
 
     virtual int calculeazaPutere() const = 0;
 
@@ -34,5 +33,4 @@ public:
     bool estePrieten(int idCautat) const;
     bool esteDusman(int idCautat) const;
     void adaugaPrieten(int idAdaugat);
-    void adaugaDusman(int idAdaugat);
 };

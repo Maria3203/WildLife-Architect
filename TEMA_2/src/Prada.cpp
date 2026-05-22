@@ -28,8 +28,3 @@ void Prada::actualizeazaOboseala() {
     }
 }
 
-void Prada::forteazaAlergare() {
-    if (!esteObosita && tureAlergate == 0) {
-        tureAlergate = 1;
-    }
-}

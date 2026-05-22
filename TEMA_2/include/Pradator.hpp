@@ -11,13 +11,11 @@ public:
     Pradator(int x, int y, int energie, std::string numeSpecie, char sex, int daune);
     virtual ~Pradator() = default;
 
-    int getDauneAtac() const { return dauneAtac; }
     int calculeazaPutere() const override { return energie + dauneAtac + (experienta * 2); }
 
 
     bool esteAmenintare(const std::shared_ptr<Entitate>& alta) const override;
 
-    bool gasestePradaInJur(const MatriceHarta& harti, int& tintaX, int& tintaY) const;
 };
 
 #endif

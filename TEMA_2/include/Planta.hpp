@@ -14,7 +14,7 @@ public:
     virtual ~Planta() = default;
 
     int getBonusEnergie() const { return bonusEnergie; }
-    bool aFostInspectata() const { return inspectata; }
+
 
 
     void actioneaza(const MatriceHarta& harti) override;

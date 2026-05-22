@@ -221,7 +221,7 @@ void Ecosistem::afiseazaHartaCurenta() const {
     std::cout << std::endl;
 }
 
-void Ecosistem::actualizeazaCelulaPeEcran(int x, int y) { (void)x; (void)y; }
+
 
 void Ecosistem::proceseazaTuraAI() {
     std::vector<int> entitatiProcesate;
