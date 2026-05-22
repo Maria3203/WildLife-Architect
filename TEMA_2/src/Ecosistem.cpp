@@ -58,7 +58,7 @@ void executaMiscareAleatorieAI(Animal* animal, const MatriceHarta& harti) {
     int nx = animal->getX() + dx[dir];
     int ny = animal->getY() + dy[dir];
 
-    if (nx >= 0 && nx < n && ny >= 0 && ny < n) {
+    if (nx >= 0 && nx < static_cast<int>(harti.size()) && ny >= 0 && ny < static_cast<int>(harti.size()))  {
         auto tinta = harti[nx][ny];
         if (!tinta) {
             animal->setPozitie(nx, ny);
