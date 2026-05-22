@@ -13,7 +13,7 @@ public:
     Prada(int x, int y, int energie, std::string numeSpecie, char sex, int valoare);
     virtual ~Prada() = default;
 
-    int getValoareNutritiva() const { return valoareNutritiva; }
+
     bool getEsteObosita() const { return esteObosita; }
     
     int calculeazaPutere() const override { return energie + experienta; }

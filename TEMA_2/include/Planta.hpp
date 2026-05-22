@@ -16,7 +16,7 @@ public:
     int getBonusEnergie() const { return bonusEnergie; }
     bool getEsteOtravitoare() const { return esteOtravitoare; }
     bool aFostInspectata() const { return inspectata; }
-    void inspecteaza() { inspectata = true; }
+
 
     void actioneaza(const MatriceHarta& harti) override;
 };
