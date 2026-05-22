@@ -35,7 +35,6 @@ public:
     void ruleazaJoc();
 
 
-    void verificaVecinatatiJucator();
     void actualizeazaCelulaPeEcran(int x, int y);
 };
 

@@ -47,7 +47,7 @@ void creeazaPuiAdiacent(const std::string& specie, int x, int y, MatriceHarta& h
     std::cout << "\n[NATURA] Nu s-a gasit spatiu liber in jur pentru nasterea puiului.\n";
 }
 
-void mutaCursorulLa(int rand, int coloana) { (void)rand; (void)coloana; }
+
 
 void executaMiscareAleatorieAI(Animal* animal, const MatriceHarta& harti) {
     int dx[] = {-1, 1, 0, 0};
@@ -222,7 +222,6 @@ void Ecosistem::afiseazaHartaCurenta() const {
 }
 
 void Ecosistem::actualizeazaCelulaPeEcran(int x, int y) { (void)x; (void)y; }
-void Ecosistem::verificaVecinatatiJucator() { }
 
 void Ecosistem::proceseazaTuraAI() {
     std::vector<int> entitatiProcesate;

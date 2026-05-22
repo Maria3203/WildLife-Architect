@@ -18,7 +18,7 @@ public:
     bool aFostInspectata() const { return inspectata; }
     void inspecteaza() { inspectata = true; }
 
-    void actioneaza(const MatriceHarta& harti) override; // Plantele nu se mișcă
+    void actioneaza(const MatriceHarta& harti) override;
 };
 
 #endif

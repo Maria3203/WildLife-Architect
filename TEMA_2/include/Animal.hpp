@@ -32,8 +32,8 @@ public:
     void imbatraneste() { varsta++; energie -= 2; }
     void acumuleazaExperienta(int exp) { experienta += exp; }
 
-    bool estePrieten(int id) const;
-    bool esteDusman(int id) const;
-    void adaugaPrieten(int id);
-    void adaugaDusman(int id);
+    bool estePrieten(int nouId) const;
+    bool esteDusman(int nouId) const;
+    void adaugaPrieten(int nouId);
+    void adaugaDusman(int nouId);
 };

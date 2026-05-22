@@ -18,14 +18,14 @@ bool Animal::esteDusman(int id) const {
     return std::find(listaDusmani.begin(), listaDusmani.end(), id) != listaDusmani.end();
 }
 
-void Animal::adaugaPrieten(int id) {
-    if (!estePrieten(id)) {
-        listaPrieteni.push_back(id);
+void Animal::adaugaPrieten(int nouId) {
+    if (!estePrieten(nouId)) {
+        listaPrieteni.push_back(nouId);
     }
 }
 
-void Animal::adaugaDusman(int id) {
-    if (!esteDusman(id)) {
-        listaDusmani.push_back(id);
+void Animal::adaugaDusman(int nouId) {
+    if (!esteDusman(nouId)) {
+        listaDusmani.push_back(nouId);
     }
 }
