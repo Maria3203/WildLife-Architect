@@ -31,6 +31,5 @@ public:
     void acumuleazaExperienta(int exp) { experienta += exp; }
 
     bool estePrieten(int idCautat) const;
-    bool esteDusman(int idCautat) const;
     void adaugaPrieten(int idAdaugat);
 };

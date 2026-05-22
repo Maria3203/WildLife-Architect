@@ -13,9 +13,6 @@ bool Animal::estePrieten(int idCautat) const {
     return std::find(listaPrieteni.begin(), listaPrieteni.end(), idCautat) != listaPrieteni.end();
 }
 
-bool Animal::esteDusman(int idCautat) const {
-    return std::find(listaDusmani.begin(), listaDusmani.end(), idCautat) != listaDusmani.end();
-}
 
 void Animal::adaugaPrieten(int idAdaugat) {
     if (!estePrieten(idAdaugat)) {
