@@ -13,8 +13,8 @@
 #include <sstream>
 
 void creeazaPuiAdiacent(const std::string& specie, int x, int y, MatriceHarta& harti, std::shared_ptr<Animal> jucator) {
-    int dx[] = {-1, 1, 0, 0, -1, -1, 1, 1};
-    int dy[] = {0, 0, -1, 1, -1, 1, -1, 1};
+    const int dx[] = {-1, 1, 0, 0, -1, -1, 1, 1};
+    const int dy[] = {0, 0, -1, 1, -1, 1, -1, 1};
     char sexPui = (std::rand() % 2 == 0) ? 'M' : 'F';
 
     for (int i = 0; i < 8; ++i) {
@@ -50,8 +50,8 @@ void creeazaPuiAdiacent(const std::string& specie, int x, int y, MatriceHarta& h
 
 
 void executaMiscareAleatorieAI(Animal* animal, const MatriceHarta& harti) {
-    int dx[] = {-1, 1, 0, 0};
-    int dy[] = {0, 0, -1, 1};
+    const int dx[] = {-1, 1, 0, 0};
+    const int dy[] = {0, 0, -1, 1};
     int dir = std::rand() % 4;
 
     int nx = animal->getX() + dx[dir];
@@ -519,7 +519,8 @@ void Ecosistem::ruleazaJoc() {
 
 void Lup::actioneaza(const MatriceHarta& harti) {
     int tx = this->getX(), ty = this->getY(); bool gasitPradaLocala = false;
-    int dx[] = {-1, 1, 0, 0}; int dy[] = {0, 0, -1, 1};
+    const int dx[] = {-1, 1, 0, 0};
+    const int dy[] = {0, 0, -1, 1};
     for (int dir = 0; dir < 4; ++dir) {
         int nx = this->getX() + dx[dir]; int ny = this->getY() + dy[dir];
         if (nx >= 0 && nx < static_cast<int>(harti.size()) && ny >= 0 && ny < static_cast<int>(harti.size())) {
@@ -533,7 +534,8 @@ void Lup::actioneaza(const MatriceHarta& harti) {
 
 void Vulpe::actioneaza(const MatriceHarta& harti) {
     int tx = this->getX(), ty = this->getY(); bool gasitPradaLocala = false;
-    int dx[] = {-1, 1, 0, 0}; int dy[] = {0, 0, -1, 1};
+    const int dx[] = {-1, 1, 0, 0};
+    const int dy[] = {0, 0, -1, 1};
     for (int dir = 0; dir < 4; ++dir) {
         int nx = this->getX() + dx[dir]; int ny = this->getY() + dy[dir];
         if (nx >= 0 && nx < static_cast<int>(harti.size()) && ny >= 0 && ny < static_cast<int>(harti.size())) {
@@ -546,7 +548,8 @@ void Vulpe::actioneaza(const MatriceHarta& harti) {
 
 void Urs::actioneaza(const MatriceHarta& harti) {
     int tx = this->getX(), ty = this->getY(); bool gasitPradaLocala = false;
-    int dx[] = {-1, 1, 0, 0}; int dy[] = {0, 0, -1, 1};
+    const int dx[] = {-1, 1, 0, 0};
+    const int dy[] = {0, 0, -1, 1};
     for (int dir = 0; dir < 4; ++dir) {
         int nx = this->getX() + dx[dir]; int ny = this->getY() + dy[dir];
         if (nx >= 0 && nx < static_cast<int>(harti.size()) && ny >= 0 && ny < static_cast<int>(harti.size())) {
@@ -559,7 +562,8 @@ void Urs::actioneaza(const MatriceHarta& harti) {
 
 void Uliu::actioneaza(const MatriceHarta& harti) {
     int tx = this->getX(), ty = this->getY(); bool gasitPradaLocala = false;
-    int dx[] = {-1, 1, 0, 0}; int dy[] = {0, 0, -1, 1};
+    const int dx[] = {-1, 1, 0, 0};
+    const int dy[] = {0, 0, -1, 1};
     for (int dir = 0; dir < 4; ++dir) {
         int nx = this->getX() + dx[dir]; int ny = this->getY() + dy[dir];
         if (nx >= 0 && nx < static_cast<int>(harti.size()) && ny >= 0 && ny < static_cast<int>(harti.size())) {
