@@ -522,7 +522,7 @@ void Lup::actioneaza(const MatriceHarta& harti) {
     int dx[] = {-1, 1, 0, 0}; int dy[] = {0, 0, -1, 1};
     for (int dir = 0; dir < 4; ++dir) {
         int nx = this->getX() + dx[dir]; int ny = this->getY() + dy[dir];
-        if (nx >= 0 && nx < harti.size() && ny >= 0 && ny < harti.size()) {
+        if (nx >= 0 && nx < static_cast<int>(harti.size()) && ny >= 0 && ny < static_cast<int>(harti.size())) {
             if (harti[nx][ny] && std::dynamic_pointer_cast<Prada>(harti[nx][ny])) { tx = nx; ty = ny; gasitPradaLocala = true; break; }
         }
     }
