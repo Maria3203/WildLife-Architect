@@ -6,41 +6,92 @@
 #include <string>
 
 class Iepure : public Prada {
-protected:
-    void doAfiseaza(std::ostream& os) const override { os << "ie"; }
 public:
-    Iepure(int x, int y, char sex) : Prada(x, y, 50, "Iepure", sex, 25) {}
-    std::shared_ptr<Entitate> clone() const override { return std::make_shared<Iepure>(*this); }
+    Iepure(int x, int y, char sex) : Prada(x, y, 50, "Iepure", sex) {}
+
+    void afiseaza(std::ostream& os) const override {
+        os << "ie";
+    }
+
+    std::shared_ptr<Entitate> clone() const override {
+        return std::shared_ptr<Entitate>(new Iepure(*this));
+    }
+    void actualizeazaOboseala() override;
+
     void actioneaza(const MatriceHarta& harti) override;
 };
 
 class Caprioara : public Prada {
-protected:
-    void doAfiseaza(std::ostream& os) const override { os << "ca"; }
 public:
-    Caprioara(int x, int y, char sex) : Prada(x, y, 90, "Caprioara", sex, 50) {}
-    std::shared_ptr<Entitate> clone() const override { return std::make_shared<Caprioara>(*this); }
+
+    Caprioara(int x, int y, char sex) : Prada(x, y, 90, "Caprioara", sex) {}
+
+    void afiseaza(std::ostream& os) const override {
+        os << "ca";
+    }
+
+    std::shared_ptr<Entitate> clone() const override {
+        return std::shared_ptr<Entitate>(new Caprioara(*this));
+    }
+    void actualizeazaOboseala() override;
+
     void actioneaza(const MatriceHarta& harti) override;
 };
-
 class Pasare : public Prada {
-protected:
-    void doAfiseaza(std::ostream& os) const override { os << "pa"; }
 public:
-    Pasare(int x, int y, char sex) : Prada(x, y, 40, "Pasare", sex, 20) {}
-    std::shared_ptr<Entitate> clone() const override { return std::make_shared<Pasare>(*this); }
+    // Prăzile au doar 5 parametri la constructor
+    Pasare(int x, int y, char sex) : Prada(x, y, 40, "Pasare", sex) {}
+
+    void afiseaza(std::ostream& os) const override {
+        os << "pa";
+    }
+
+    std::shared_ptr<Entitate> clone() const override {
+        return std::shared_ptr<Entitate>(new Pasare(*this));
+    }
+
+    void actualizeazaOboseala() override;
     void actioneaza(const MatriceHarta& harti) override;
 };
-
 
 class Veverita : public Prada {
-protected:
-    void doAfiseaza(std::ostream& os) const override { os << "ve"; }
 public:
-    Veverita(int x, int y, char sex) : Prada(x, y, 30, "Veverita", sex, 15) {}
-    std::shared_ptr<Entitate> clone() const override { return std::make_shared<Veverita>(*this); }
+    Veverita(int x, int y, char sex) : Prada(x, y, 45, "Veverita", sex) {}
+
+    void afiseaza(std::ostream& os) const override {
+        os << "ve";
+    }
+
+    std::shared_ptr<Entitate> clone() const override {
+        return std::shared_ptr<Entitate>(new Veverita(*this));
+    }
+
+    void actualizeazaOboseala() override;
     void actioneaza(const MatriceHarta& harti) override;
+
 };
-
-
 #endif
+void Iepure::actualizeazaOboseala() {
+    // Poti pune logica ta aici mai tarziu. Acum o lasam goala ca sa compileze.
+}
+void Iepure::actioneaza(const MatriceHarta& harti) {
+    actioneazaPradaStandard(harti);
+}
+
+// --- CAPRIOARA ---
+void Caprioara::actualizeazaOboseala() { }
+void Caprioara::actioneaza(const MatriceHarta& harti) {
+    actioneazaPradaStandard(harti);
+}
+
+// --- PASARE ---
+void Pasare::actualizeazaOboseala() { }
+void Pasare::actioneaza(const MatriceHarta& harti) {
+    actioneazaPradaStandard(harti);
+}
+
+// --- VEVERITA ---
+void Veverita::actualizeazaOboseala() { }
+void Veverita::actioneaza(const MatriceHarta& harti) {
+    actioneazaPradaStandard(harti);
+}

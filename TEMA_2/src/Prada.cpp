@@ -1,30 +1,16 @@
 #include "../include/Prada.hpp"
-#include "../include/Pradator.hpp"
-#include <memory>
 
-Prada::Prada(int x, int y, int energie, const std::string& numeSpecie, char sex, int valoare)
-    : Animal(x, y, energie, numeSpecie, sex),
-      valoareNutritiva(valoare),
-      tureAlergate(0),
-      esteObosita(false) {}
 
-bool Prada::esteAmenintare(const std::shared_ptr<Entitate>& alta) const {
-    if (!alta) return false;
-
-    auto pradatorVecin = std::dynamic_pointer_cast<Pradator>(alta);
-
-    return pradatorVecin != nullptr;
+Prada::Prada(int x, int y, int energie, const std::string& numeSpecie, char sex)
+    : Animal(x, y, energie, numeSpecie, sex), esteObosita(false) {
 }
+void Prada::actioneazaPradaStandard(const MatriceHarta& harti) {
+    this->actualizeazaOboseala();
 
-void Prada::actualizeazaOboseala() {
-    if (tureAlergate > 0) {
-        tureAlergate++;
-        if (tureAlergate > 2) {
-            esteObosita = true;
-            tureAlergate = 0;
-        }
-    } else {
-        esteObosita = false;
+    if (this->esteObosita) {
+        return;
     }
-}
 
+    executaMiscareAleatorieAI(harti);
+    this->imbatraneste();
+}

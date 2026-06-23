@@ -6,16 +6,16 @@
 class Planta : public Entitate {
 protected:
     int bonusEnergie;
-    bool esteOtravitoare;
+    bool esteOtravitoare_var;
     bool inspectata;
 
 public:
     Planta(int x, int y, int energie, const std::string& numeSpecie, int bonus, bool otrava);
     ~Planta() override = default;
 
-    int getBonusEnergie() const { return bonusEnergie; }
-
-
+    int getBonusEnergie() const override { return bonusEnergie; }
+    bool estePlanta() const override { return true; }
+    virtual bool esteOtravitoare() const  {return false;}
 
     void actioneaza(const MatriceHarta& harti) override;
 };

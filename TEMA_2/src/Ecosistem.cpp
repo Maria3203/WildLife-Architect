@@ -49,28 +49,6 @@ void creeazaPuiAdiacent(const std::string& specie, int x, int y, MatriceHarta& h
 
 
 
-void executaMiscareAleatorieAI(Animal* animal, const MatriceHarta& harti) {
-    const int dx[] = {-1, 1, 0, 0};
-    const int dy[] = {0, 0, -1, 1};
-    int dir = std::rand() % 4;
-
-    int nx = animal->getX() + dx[dir];
-    int ny = animal->getY() + dy[dir];
-
-    if (nx >= 0 && nx < static_cast<int>(harti.size()) && ny >= 0 && ny < static_cast<int>(harti.size())) {
-        auto tinta = harti[nx][ny];
-        if (!tinta) {
-            animal->setPozitie(nx, ny);
-            animal->modificaEnergie(-1);
-        } else {
-            auto pl = std::dynamic_pointer_cast<Planta>(tinta);
-            if (pl && std::dynamic_pointer_cast<Prada>(harti[animal->getX()][animal->getY()])) {
-                animal->setPozitie(nx, ny);
-                animal->modificaEnergie(pl->getBonusEnergie());
-            }
-        }
-    }
-}
 
 Ecosistem::Ecosistem(int dim) : dimensiune(dim) {
     if (dim < 4) dimensiune = 20;
@@ -186,7 +164,7 @@ void Ecosistem::afiseazaStatusJucator() const {
 }
 
 void Ecosistem::afiseazaHartaCurenta() const {
-    bool esteModPrada = (std::dynamic_pointer_cast<Prada>(jucator) != nullptr);
+    bool esteModPrada = jucator->estePrada();
 
     for (int i = 0; i < dimensiune; ++i) {
         for (int j = 0; j < dimensiune; ++j) {
@@ -202,7 +180,7 @@ void Ecosistem::afiseazaHartaCurenta() const {
                 oss << "[";
                 ent->afiseaza(oss);
 
-                if (anim && esteModPrada && std::dynamic_pointer_cast<Prada>(anim)) {
+                if (anim && esteModPrada && anim->estePrada()) { // Fără dynamic cast
                     oss << anim->getSex();
                 }
                 oss << "]";
@@ -225,7 +203,7 @@ void Ecosistem::afiseazaHartaCurenta() const {
 
 void Ecosistem::proceseazaTuraAI() {
     std::vector<int> entitatiProcesate;
-    bool estePrada = (std::dynamic_pointer_cast<Prada>(jucator) != nullptr);
+    bool estePrada = jucator->estePrada();
     int jX = jucator->getX();
     int jY = jucator->getY();
     bool predatorActivTuraAsta = false;
@@ -240,7 +218,7 @@ void Ecosistem::proceseazaTuraAI() {
                 int vechiX = i;
                 int vechiY = j;
 
-                if (estePrada && !std::dynamic_pointer_cast<Prada>(ent) && !std::dynamic_pointer_cast<Planta>(ent)) {
+                if (estePrada && !ent->estePrada() && !ent->estePlanta()) {
                     int distX = std::abs(vechiX - jX);
                     int distY = std::abs(vechiY - jY);
 
@@ -315,7 +293,7 @@ void Ecosistem::ruleazaJoc() {
     int invPrey = 0;
     int invGoodFruit = 0;
     int invBadFruit = 0;
-    bool estePrada = (std::dynamic_pointer_cast<Prada>(jucator) != nullptr);
+    bool estePrada = jucator->estePrada();
     if (!jucator) {
         throw ExceptieLogicaJoc("Jucatorul nu a fost initializat! Apeleaza initJoc inainte.");
     }
@@ -342,7 +320,7 @@ void Ecosistem::ruleazaJoc() {
             for (int i = std::max(0, jX - 4); i <= std::min(dimensiune - 1, jX + 4); ++i) {
                 for (int j = std::max(0, jY - 4); j <= std::min(dimensiune - 1, jY + 4); ++j) {
                     auto vecin = harti[i][j];
-                    if (vecin && !std::dynamic_pointer_cast<Prada>(vecin) && !std::dynamic_pointer_cast<Planta>(vecin) && vecin->getId() != jucator->getId()) {
+                    if (vecin && !vecin->estePrada() && !vecin->estePlanta() && vecin->getId() != jucator->getId()) {
                         predatorInJur = true;
                     }
                 }
@@ -395,13 +373,11 @@ void Ecosistem::ruleazaJoc() {
                 jucator->setPozitie(nX, nY); jucator->modificaEnergie((pas == 2) ? -3 : -1);
             }
             else {
-                auto pl = std::dynamic_pointer_cast<Planta>(entitateTinta);
-                auto targetAnimal = std::dynamic_pointer_cast<Animal>(entitateTinta);
-
-                if (pl) {
+                if (entitateTinta->estePlanta()) { // Am scapat de auto pl = dynamic_cast...
                     if (estePrada) {
                         std::cout << "\n=========================================================\n";
-                        bool esteOtravitor = (std::dynamic_pointer_cast<FructOtravitor>(pl) != nullptr);
+                        bool esteOtravitor = entitateTinta->esteFructOtravitor(); // Am scapat de verificare dynamic_cast otravitor
+
                         if (esteOtravitor) {
                             std::cout << " [ATENTIE] Ai calcat pe un Fruct Otravitor!\n (M) - Il mananc (Pierzi HP!)\n (C) - Culeg in rucsac\n Alegere: ";
                         } else {
@@ -411,14 +387,21 @@ void Ecosistem::ruleazaJoc() {
                         if (dec == 'C') {
                             if (esteOtravitor) invBadFruit++; else invGoodFruit++;
                             std::cout << "\n[INVENTAR] Stocat in rucsac!\n";
-                        } else jucator->modificaEnergie(pl->getBonusEnergie());
-                    } else jucator->modificaEnergie(-1);
+                        } else {
+                            jucator->modificaEnergie(entitateTinta->getBonusEnergie());
+                        }
+                    } else {
+                        jucator->modificaEnergie(-1); // Pradatorii strica plantele cand calca pe ele
+                    }
 
                     harti[nX][nY] = jucator; harti[vechiX][vechiY] = nullptr;
                     jucator->setPozitie(nX, nY);
                     std::cout << "Apasa ENTER..."; std::string dummy; std::getline(std::cin >> std::ws, dummy);
                 }
-                else if (targetAnimal) {
+                else if (entitateTinta->estePrada() || entitateTinta->estePradator()) {
+                    // In loc de auto targetAnimal = dynamic_cast...
+                    auto targetAnimal = std::static_pointer_cast<Animal>(entitateTinta); // Static cast e super rapid si e sigur aici pentru ca am verificat deja polimorfic ca e animal
+
                     if (jucator->estePrieten(targetAnimal->getId())) {
                         std::cout << "\n=========================================================\n";
                         if (targetAnimal->getNumeSpecie() == jucator->getNumeSpecie()) {
@@ -518,63 +501,18 @@ void Ecosistem::ruleazaJoc() {
 }
 
 void Lup::actioneaza(const MatriceHarta& harti) {
-    int tx = this->getX(), ty = this->getY(); bool gasitPradaLocala = false;
-    const int dx[] = {-1, 1, 0, 0};
-    const int dy[] = {0, 0, -1, 1};
-    for (int dir = 0; dir < 4; ++dir) {
-        int nx = this->getX() + dx[dir]; int ny = this->getY() + dy[dir];
-        if (nx >= 0 && nx < static_cast<int>(harti.size()) && ny >= 0 && ny < static_cast<int>(harti.size())) {
-            if (harti[nx][ny] && std::dynamic_pointer_cast<Prada>(harti[nx][ny])) { tx = nx; ty = ny; gasitPradaLocala = true; break; }
-        }
-    }
-    if (gasitPradaLocala) { this->setPozitie(tx, ty); this->modificaEnergie(15); this->acumuleazaExperienta(5); }
-    else executaMiscareAleatorieAI(this, harti);
-    this->imbatraneste();
+    actioneazaPradatorStandard(harti, 15, 5);
 }
 
 void Vulpe::actioneaza(const MatriceHarta& harti) {
-    int tx = this->getX(), ty = this->getY(); bool gasitPradaLocala = false;
-    const int dx[] = {-1, 1, 0, 0};
-    const int dy[] = {0, 0, -1, 1};
-    for (int dir = 0; dir < 4; ++dir) {
-        int nx = this->getX() + dx[dir]; int ny = this->getY() + dy[dir];
-        if (nx >= 0 && nx < static_cast<int>(harti.size()) && ny >= 0 && ny < static_cast<int>(harti.size())) {
-            if (harti[nx][ny] && std::dynamic_pointer_cast<Prada>(harti[nx][ny])) { tx = nx; ty = ny; gasitPradaLocala = true; break; }
-        }
-    }
-    if (gasitPradaLocala) { this->setPozitie(tx, ty); this->modificaEnergie(10); } else executaMiscareAleatorieAI(this, harti);
-    this->imbatraneste();
+    actioneazaPradatorStandard(harti, 10, 0);
 }
 
 void Urs::actioneaza(const MatriceHarta& harti) {
-    int tx = this->getX(), ty = this->getY(); bool gasitPradaLocala = false;
-    const int dx[] = {-1, 1, 0, 0};
-    const int dy[] = {0, 0, -1, 1};
-    for (int dir = 0; dir < 4; ++dir) {
-        int nx = this->getX() + dx[dir]; int ny = this->getY() + dy[dir];
-        if (nx >= 0 && nx < static_cast<int>(harti.size()) && ny >= 0 && ny < static_cast<int>(harti.size())) {
-            if (harti[nx][ny] && std::dynamic_pointer_cast<Prada>(harti[nx][ny])) { tx = nx; ty = ny; gasitPradaLocala = true; break; }
-        }
-    }
-    if (gasitPradaLocala) { this->setPozitie(tx, ty); this->modificaEnergie(25); } else executaMiscareAleatorieAI(this, harti);
-    this->imbatraneste();
+    actioneazaPradatorStandard(harti, 25, 0);
 }
 
 void Uliu::actioneaza(const MatriceHarta& harti) {
-    int tx = this->getX(), ty = this->getY(); bool gasitPradaLocala = false;
-    const int dx[] = {-1, 1, 0, 0};
-    const int dy[] = {0, 0, -1, 1};
-    for (int dir = 0; dir < 4; ++dir) {
-        int nx = this->getX() + dx[dir]; int ny = this->getY() + dy[dir];
-        if (nx >= 0 && nx < static_cast<int>(harti.size()) && ny >= 0 && ny < static_cast<int>(harti.size())) {
-            if (harti[nx][ny] && std::dynamic_pointer_cast<Prada>(harti[nx][ny])) { tx = nx; ty = ny; gasitPradaLocala = true; break; }
-        }
-    }
-    if (gasitPradaLocala) { this->setPozitie(tx, ty); this->modificaEnergie(12); } else executaMiscareAleatorieAI(this, harti);
-    this->imbatraneste();
+    actioneazaPradatorStandard(harti, 12, 0);
 }
 
-void Iepure::actioneaza(const MatriceHarta& harti) { actualizeazaOboseala(); if (esteObosita) return; executaMiscareAleatorieAI(this, harti); this->imbatraneste(); }
-void Caprioara::actioneaza(const MatriceHarta& harti) { actualizeazaOboseala(); if (esteObosita) return; executaMiscareAleatorieAI(this, harti); this->imbatraneste(); }
-void Pasare::actioneaza(const MatriceHarta& harti) { actualizeazaOboseala(); if (esteObosita) return; executaMiscareAleatorieAI(this, harti); this->imbatraneste(); }
-void Veverita::actioneaza(const MatriceHarta& harti) { actualizeazaOboseala(); if (esteObosita) return; executaMiscareAleatorieAI(this, harti); this->imbatraneste(); }

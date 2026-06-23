@@ -51,7 +51,6 @@ int main() {
             }
             sexJucator = std::toupper(sexJucator);
 
-            // Pornire instanță joc
             Ecosistem eco(20);
             eco.initJoc(categorieJoc, selectieAnimal, sexJucator);
             eco.ruleazaJoc();
