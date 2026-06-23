@@ -41,7 +41,7 @@ public:
     void setPozitie(int nouX, int nouY) { x = nouX; y = nouY; }
     int getEnergie() const { return energie; }
     void modificaEnergie(int val) { energie += val; }
-    std::string getNumeSpecie() const { return numeSpecie; }
+    const std::string& getNumeSpecie() const { return numeSpecie; }
 };
 
 #endif

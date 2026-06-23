@@ -200,7 +200,10 @@ void Ecosistem::afiseazaHartaCurenta() const {
 
 void Ecosistem::proceseazaTuraAI() {
     std::vector<int> entitatiProcesate;
-    bool estePrada = jucator->estePrada();
+    bool estePrada = false;
+    if (jucator) {
+        estePrada = jucator->estePrada();
+    }
     int jX = jucator->getX();
     int jY = jucator->getY();
     bool predatorActivTuraAsta = false;
@@ -286,12 +289,13 @@ void Ecosistem::proceseazaTuraAI() {
 }
 
 void Ecosistem::ruleazaJoc() {
-    bool jocInDesfasurare = true;
+    volatile bool jocInDesfasurare = true;
     int invPrey = 0;
     int invGoodFruit = 0;
     int invBadFruit = 0;
-    bool estePrada = jucator->estePrada();
+    bool estePrada = false;
     if (jucator) {
+        estePrada = jucator->estePrada();
         throw ExceptieLogicaJoc("Jucatorul nu a fost initializat! Apeleaza initJoc inainte.");
     }
 
