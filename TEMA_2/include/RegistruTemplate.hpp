@@ -10,9 +10,7 @@ class RegistruSpecial {
 private:
     std::vector<std::shared_ptr<T>> entitati;
 public:
-    void adauga(std::shared_ptr<T> ent) {
-        if (ent) entitati.push_back(ent);
-    }
+
 
     int numaraVii() const {
         int count = 0;
