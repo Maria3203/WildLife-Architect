@@ -1,11 +1,11 @@
-
+#include "../include/GeneratorID.hpp"
 #include "../include/Entitate.hpp"
 
 static int contorID_global = 0;
 
 
 Entitate::Entitate(int x, int y,  int energie, const std::string& numeSpecieParam)
-    : x(x), y(y), id(++contorID_global), energie(energie), numeSpecie(numeSpecieParam) {
+    : x(x), y(y), id(GeneratorID::getInstance().genereazaID()), energie(energie), numeSpecie(numeSpecieParam) {
 }
 
 

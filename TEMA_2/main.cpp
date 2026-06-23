@@ -2,8 +2,26 @@
 #include <string>
 #include "../include/Ecosistem.hpp"
 #include "../include/Exceptii.hpp"
+#include "../include/RegistruTemplate.hpp"
+#include "../include/Pradator.hpp"
+#include "../include/Prada.hpp"
 
 int main() {
+    RegistruSpecial<Pradator> registruPradatori;
+    RegistruSpecial<Prada> registruPrazi;
+
+    std::vector<std::shared_ptr<Pradator>> testListaPradatori;
+    std::vector<std::shared_ptr<Prada>> testListaPrazi;
+
+    int energiePradatori = calculeazaEnergieTotala(testListaPradatori);
+    int energiePrazi = calculeazaEnergieTotala(testListaPrazi);
+
+    std::cout << "[SISTEM] Pradatori inregistrati: " << registruPradatori.numaraVii() << "\n";
+    std::cout << "[SISTEM] Prazi inregistrate: " << registruPrazi.numaraVii() << "\n";
+    std::cout << "[SISTEM] Energie totala de start (Pradatori): " << energiePradatori << "\n";
+    std::cout << "[SISTEM] Energie totala de start (Prazi): " << energiePrazi << "\n";
+    std::cout << "========================================================\n\n";
+
     try {
         char alegereReplay = 'N';
 

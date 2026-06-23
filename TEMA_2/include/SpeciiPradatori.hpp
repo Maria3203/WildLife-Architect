@@ -1,18 +1,17 @@
+#ifndef OOP_SPECIIPRADATORI_HPP
+#define OOP_SPECIIPRADATORI_HPP
 #include "Pradator.hpp"
 #include <ostream>
 #include <string>
 
 class Lup : public Pradator {
-public: // <-- Mutat afiseaza in public ca sa poata fi apelata de Ecosistem
+public:
     Lup(int x, int y, char sex) : Pradator(x, y, 100, "Lup", sex, 30) {}
 
-    // Eroarea 1 rezolvata: redenumit in 'afiseaza'
-    // Eroarea 2 rezolvata: folosit this->getSex() (asigura-te ca in Animal.hpp e const!)
     void afiseaza(std::ostream& os) const override {
         os << (this->getSex() == 'M' ? "LM" : "LF");
     }
 
-    // Eroarea 3 rezolvata: fallback la new pentru clonare sigura
     std::shared_ptr<Entitate> clone() const override {
         return std::shared_ptr<Entitate>(new Lup(*this));
     }
@@ -36,7 +35,6 @@ public:
 };
 class Urs : public Pradator {
 public:
-    // Parametrii bazei: x, y, energie, nume, sex, daune
     Urs(int x, int y, char sex) : Pradator(x, y, 150, "Urs", sex, 40) {}
 
     void afiseaza(std::ostream& os) const override {
@@ -64,3 +62,5 @@ public:
 
     void actioneaza(const MatriceHarta& harti) override;
 };
+
+#endif

@@ -30,6 +30,9 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         "TEMA_2/src/Planta.cpp"
         "TEMA_2/src/Ecosistem.cpp"
         "TEMA_2/src/Exceptii.cpp"
+        TEMA_2/include/GeneratorID.hpp
+        TEMA_2/include/EntitateFactory.hpp
+        TEMA_2/include/RegistruTemplate.hpp
 
 )
 

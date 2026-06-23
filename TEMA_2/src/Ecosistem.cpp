@@ -4,6 +4,7 @@
 #include "../include/SpeciiPrazi.hpp"
 #include "../include/SpeciiPlante.hpp"
 #include "../include/Exceptii.hpp"
+#include "../include/EntitateFactory.hpp"
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
@@ -22,14 +23,8 @@ void creeazaPuiAdiacent(const std::string& specie, int x, int y, MatriceHarta& h
         int ny = y + dy[i];
         if (nx >= 0 && nx < static_cast<int>(harti.size()) && ny >= 0 && ny < static_cast<int>(harti.size())) {
             if (!harti[nx][ny]) {
-                if (specie == "Lup") harti[nx][ny] = std::make_shared<Lup>(nx, ny, sexPui);
-                else if (specie == "Vulpe") harti[nx][ny] = std::make_shared<Vulpe>(nx, ny, sexPui);
-                else if (specie == "Urs") harti[nx][ny] = std::make_shared<Urs>(nx, ny, sexPui);
-                else if (specie == "Uliu") harti[nx][ny] = std::make_shared<Uliu>(nx, ny, sexPui);
-                else if (specie == "Iepure") harti[nx][ny] = std::make_shared<Iepure>(nx, ny, sexPui);
-                else if (specie == "Caprioara") harti[nx][ny] = std::make_shared<Caprioara>(nx, ny, sexPui);
-                else if (specie == "Pasare") harti[nx][ny] = std::make_shared<Pasare>(nx, ny, sexPui);
-                else if (specie == "Veverita") harti[nx][ny] = std::make_shared<Veverita>(nx, ny, sexPui);
+                harti[nx][ny] = EntitateFactory::creeazaAnimal(specie, nx, ny, sexPui);
+                if (harti[nx][ny]) harti[nx][ny]->modificaEnergie(50);
 
                 if (harti[nx][ny]) harti[nx][ny]->modificaEnergie(50);
 
@@ -94,23 +89,28 @@ void Ecosistem::initJoc(int categorieJoc, int selectieAnimal, char sexJucator) {
     }
     std::srand(std::time(nullptr));
 
+    // Determinam doar numele speciei ca text
+    std::string specieAleasa;
+
     if (categorieJoc == 1) {
         switch (selectieAnimal) {
-            case 1: jucator = std::make_shared<Lup>(0, 0, sexJucator); break;
-            case 2: jucator = std::make_shared<Vulpe>(0, 0, sexJucator); break;
-            case 3: jucator = std::make_shared<Urs>(0, 0, sexJucator); break;
-            case 4: jucator = std::make_shared<Uliu>(0, 0, sexJucator); break;
-            default: jucator = std::make_shared<Lup>(0, 0, sexJucator);
+            case 1: specieAleasa = "Lup"; break;
+            case 2: specieAleasa = "Vulpe"; break;
+            case 3: specieAleasa = "Urs"; break;
+            case 4: specieAleasa = "Uliu"; break;
+            default: specieAleasa = "Lup";
         }
     } else {
         switch (selectieAnimal) {
-            case 1: jucator = std::make_shared<Iepure>(0, 0, sexJucator); break;
-            case 2: jucator = std::make_shared<Caprioara>(0, 0, sexJucator); break;
-            case 3: jucator = std::make_shared<Pasare>(0, 0, sexJucator); break;
-            case 4: jucator = std::make_shared<Veverita>(0, 0, sexJucator); break;
-            default: jucator = std::make_shared<Iepure>(0, 0, sexJucator);
+            case 1: specieAleasa = "Iepure"; break;
+            case 2: specieAleasa = "Caprioara"; break;
+            case 3: specieAleasa = "Pasare"; break;
+            case 4: specieAleasa = "Veverita"; break;
+            default: specieAleasa = "Iepure";
         }
     }
+
+    jucator = EntitateFactory::creeazaAnimal(specieAleasa, 0, 0, sexJucator);
 
     double sansaFlora = (categorieJoc == 2) ? 0.25 : 0.05;
     double sansaPrazi = (categorieJoc == 2) ? 0.05 : 0.25;
@@ -135,17 +135,14 @@ void Ecosistem::initJoc(int categorieJoc, int selectieAnimal, char sexJucator) {
             }
             else if (r < sansaFlora + sansaPrazi) {
                 int tipPr = std::rand() % 4;
-                if (tipPr == 0) { harti[i][j] = std::make_shared<Iepure>(i, j, rSex); harti[i][j]->modificaEnergie(100); }
-                else if (tipPr == 1) { harti[i][j] = std::make_shared<Caprioara>(i, j, rSex); harti[i][j]->modificaEnergie(100); }
-                else if (tipPr == 2) { harti[i][j] = std::make_shared<Pasare>(i, j, rSex); harti[i][j]->modificaEnergie(100); }
-                else { harti[i][j] = std::make_shared<Veverita>(i, j, rSex); harti[i][j]->modificaEnergie(100); }
+                std::string specie = (tipPr == 0) ? "Iepure" : (tipPr == 1) ? "Caprioara" : (tipPr == 2) ? "Pasare" : "Veverita";
+                harti[i][j] = EntitateFactory::creeazaAnimal(specie, i, j, rSex);
+                if (harti[i][j]) harti[i][j]->modificaEnergie(100);
             }
             else if (r < sansaFlora + sansaPrazi + sansaPredatoriAjustata) {
                 int tipPred = std::rand() % 4;
-                if (tipPred == 0) harti[i][j] = std::make_shared<Lup>(i, j, rSex);
-                else if (tipPred == 1) harti[i][j] = std::make_shared<Vulpe>(i, j, rSex);
-                else if (tipPred == 2) harti[i][j] = std::make_shared<Urs>(i, j, rSex);
-                else harti[i][j] = std::make_shared<Uliu>(i, j, rSex);
+                std::string specie = (tipPred == 0) ? "Lup" : (tipPred == 1) ? "Vulpe" : (tipPred == 2) ? "Urs" : "Uliu";
+                harti[i][j] = EntitateFactory::creeazaAnimal(specie, i, j, rSex);
             }
         }
     }
@@ -500,19 +497,4 @@ void Ecosistem::ruleazaJoc() {
     }
 }
 
-void Lup::actioneaza(const MatriceHarta& harti) {
-    actioneazaPradatorStandard(harti, 15, 5);
-}
-
-void Vulpe::actioneaza(const MatriceHarta& harti) {
-    actioneazaPradatorStandard(harti, 10, 0);
-}
-
-void Urs::actioneaza(const MatriceHarta& harti) {
-    actioneazaPradatorStandard(harti, 25, 0);
-}
-
-void Uliu::actioneaza(const MatriceHarta& harti) {
-    actioneazaPradatorStandard(harti, 12, 0);
-}
 

@@ -1,4 +1,5 @@
 #include "../include/Pradator.hpp"
+#include "../include/SpeciiPradatori.hpp"
 #include <cmath>
 Pradator::Pradator(int x, int y, int energie, const std::string& numeSpecie, char sex, int daune)
     : Animal(x, y, energie, numeSpecie, sex), dauneAtac(daune) {
@@ -16,7 +17,6 @@ void Pradator::actioneazaPradatorStandard(const MatriceHarta& harti, int bonusEn
         int ny = this->getY() + dy[dir];
 
         if (nx >= 0 && nx < static_cast<int>(harti.size()) && ny >= 0 && ny < static_cast<int>(harti.size())) {
-            // FĂRĂ DYNAMIC_CAST! Folosim funcția virtuală din clasa de bază Entitate
             if (harti[nx][ny] && harti[nx][ny]->estePrada()) {
                 tx = nx;
                 ty = ny;
@@ -40,4 +40,22 @@ void Pradator::actioneazaPradatorStandard(const MatriceHarta& harti, int bonusEn
 }
 bool Pradator::esteAmenintare(const std::shared_ptr<Entitate>& alta) const {
     return true;
+}
+void Lup::actioneaza(const MatriceHarta& harti) {
+    this->actioneazaPradatorStandard(harti, 15, 5);
+}
+
+// --- VULPE ---
+void Vulpe::actioneaza(const MatriceHarta& harti) {
+    this->actioneazaPradatorStandard(harti, 10, 0);
+}
+
+// --- URS ---
+void Urs::actioneaza(const MatriceHarta& harti) {
+    this->actioneazaPradatorStandard(harti, 25, 0);
+}
+
+// --- ULIU ---
+void Uliu::actioneaza(const MatriceHarta& harti) {
+    this->actioneazaPradatorStandard(harti, 20, 5);
 }

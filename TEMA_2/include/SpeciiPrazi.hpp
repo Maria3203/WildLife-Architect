@@ -71,27 +71,3 @@ public:
 
 };
 #endif
-void Iepure::actualizeazaOboseala() {
-    // Poti pune logica ta aici mai tarziu. Acum o lasam goala ca sa compileze.
-}
-void Iepure::actioneaza(const MatriceHarta& harti) {
-    actioneazaPradaStandard(harti);
-}
-
-// --- CAPRIOARA ---
-void Caprioara::actualizeazaOboseala() { }
-void Caprioara::actioneaza(const MatriceHarta& harti) {
-    actioneazaPradaStandard(harti);
-}
-
-// --- PASARE ---
-void Pasare::actualizeazaOboseala() { }
-void Pasare::actioneaza(const MatriceHarta& harti) {
-    actioneazaPradaStandard(harti);
-}
-
-// --- VEVERITA ---
-void Veverita::actualizeazaOboseala() { }
-void Veverita::actioneaza(const MatriceHarta& harti) {
-    actioneazaPradaStandard(harti);
-}
