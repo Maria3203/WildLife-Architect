@@ -20,7 +20,7 @@ public:
     int calculeazaPutere() const override { return energie; }
 
 
-    bool esteAmenintare(const std::shared_ptr<Entitate>& alta) const override { return false; }
+    bool esteAmenintare(const std::shared_ptr<Entitate>& alta) const override {(void) alta; return false; }
 };
 
 #endif

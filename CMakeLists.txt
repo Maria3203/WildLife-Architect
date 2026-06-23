@@ -15,12 +15,7 @@ include(cmake/Options.cmake)
 include(cmake/CompilerFlags.cmake)
 include(cmake/CopyHelper.cmake)
 
-###############################################################################
-# (Secțiunea de FetchContent și find_package rămâne comentată așa cum era)
-###############################################################################
 
-# NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
-# AICI AM MODIFICAT: Am lăsat STRICT fișierele .cpp din TEMA_2. Tema 1 este complet izolată!
 add_executable(${MAIN_EXECUTABLE_NAME}
         "TEMA_2/main.cpp"
         "TEMA_2/src/Entitate.cpp"
@@ -30,19 +25,13 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         "TEMA_2/src/Planta.cpp"
         "TEMA_2/src/Ecosistem.cpp"
         "TEMA_2/src/Exceptii.cpp"
-        TEMA_2/include/GeneratorID.hpp
-        TEMA_2/include/EntitateFactory.hpp
-        TEMA_2/include/RegistruTemplate.hpp
 
 )
 
-# NOTE: Add all defined targets (e.g. executables, libraries, etc. )
+
 set_compiler_flags(RUN_SANITIZERS ${USE_ASAN} TARGET_NAMES ${MAIN_EXECUTABLE_NAME})
 
-###############################################################################
 
-# use SYSTEM so cppcheck and clang-tidy do not report warnings from these directories
-# AICI AM MODIFICAT: Îi spunem compilatorului unde sunt headerele noastre noi (.hpp)
 target_include_directories(${MAIN_EXECUTABLE_NAME} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/TEMA_2/include>
 )
@@ -50,9 +39,7 @@ target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE
         ext
 )
 
-###############################################################################
 
-# copy binaries to "bin" folder; these are uploaded as artifacts on each release
 install(TARGETS ${MAIN_EXECUTABLE_NAME} DESTINATION ${DESTINATION_DIR})
 if(APPLE)
     install(FILES launcher.command DESTINATION ${DESTINATION_DIR})
