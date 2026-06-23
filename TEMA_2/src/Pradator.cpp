@@ -39,6 +39,7 @@ void Pradator::actioneazaPradatorStandard(const MatriceHarta& harti, int bonusEn
     this->imbatraneste();
 }
 bool Pradator::esteAmenintare(const std::shared_ptr<Entitate>& alta) const {
+    (void)alta;
     return true;
 }
 void Lup::actioneaza(const MatriceHarta& harti) {
