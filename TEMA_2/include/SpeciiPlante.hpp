@@ -32,7 +32,6 @@ protected:
 public:
     FructOtravitor(int x, int y) : Planta(x, y, 5, "Fruct Otravitor", -40, true) {}
     std::shared_ptr<Entitate> clone() const override { return std::make_shared<FructOtravitor>(*this); }
-    bool esteOtravitoare() const override { return true; }
 };
 
 

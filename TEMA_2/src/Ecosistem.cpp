@@ -291,7 +291,7 @@ void Ecosistem::ruleazaJoc() {
     int invGoodFruit = 0;
     int invBadFruit = 0;
     bool estePrada = jucator->estePrada();
-    if (!jucator) {
+    if (jucator) {
         throw ExceptieLogicaJoc("Jucatorul nu a fost initializat! Apeleaza initJoc inainte.");
     }
 
