@@ -13,12 +13,15 @@ private:
     MatriceHarta harti;
 
     std::shared_ptr<Animal> jucator;
+    int invPrey = 0;
+    int invGoodFruit = 0;
+    int invBadFruit = 0;
 
     void curataEcranul() const;
     void afiseazaHartaCurenta() const;
     void afiseazaStatusJucator() const;
     void proceseazaTuraAI();
-    void interactiuneCelulVeche(int vechiX, int vechiY, int noulX, int noulY); // Fără stratIdx
+    void interactiuneCelulVeche(int vechiX, int vechiY, int noulX, int noulY);
 
 public:
     explicit Ecosistem(int dim);
