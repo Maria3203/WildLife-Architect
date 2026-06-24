@@ -290,13 +290,11 @@ void Ecosistem::proceseazaTuraAI() {
 
 void Ecosistem::ruleazaJoc() {
     volatile bool jocInDesfasurare = true;
+    int invPrey = 0;
     int invGoodFruit = 0;
     int invBadFruit = 0;
     bool estePrada = false;
-    if (!jucator) throw ExceptieLogicaJoc("Jucator lipsa!");
-
     while (jocInDesfasurare) {
-        int invPrey = 0;
         curataEcranul();
         afiseazaStatusJucator();
 
