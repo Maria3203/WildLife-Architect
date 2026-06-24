@@ -204,8 +204,15 @@ void Ecosistem::proceseazaTuraAI() {
     if (jucator) {
         estePrada = jucator->estePrada();
     }
-    int jX = jucator->getX();
-    int jY = jucator->getY();
+    int jX = 0;
+    int jY = 0;
+
+    if (jucator) {
+        jX = jucator->getX();
+        jY = jucator->getY();
+    } else {
+        throw ExceptieLogicaJoc("Jucatorul este null!");
+    }
     bool predatorActivTuraAsta = false;
 
     for (int i = 0; i < dimensiune; ++i) {
