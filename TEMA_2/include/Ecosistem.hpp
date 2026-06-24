@@ -13,9 +13,9 @@ private:
     MatriceHarta harti;
 
     std::shared_ptr<Animal> jucator;
-    int invPrey = 0;
-    int invGoodFruit = 0;
-    int invBadFruit = 0;
+    int invPrey;
+    int invGoodFruit;
+    int invBadFruit;
 
     void curataEcranul() const;
     void afiseazaHartaCurenta() const;
