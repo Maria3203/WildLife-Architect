@@ -301,13 +301,13 @@ void Ecosistem::ruleazaJoc() {
     int invGoodFruit = 0;
     int invBadFruit = 0;
     bool estePrada = false;
-    if (jucator) {
-        estePrada = jucator->estePrada();
-    }
+
     while (jocInDesfasurare) {
         curataEcranul();
         afiseazaStatusJucator();
-
+        if (jucator) {
+            estePrada = jucator->estePrada();
+        }
         std::cout << " INVENTAR CURENT:\n";
         if (!estePrada) {
             std::cout << " -> Prazi capturate: " << invPrey << " disponibile\n";
@@ -333,7 +333,7 @@ void Ecosistem::ruleazaJoc() {
             for (int i = std::max(0, jX - 4); i <= std::min(dimensiune - 1, jX + 4); ++i) {
                 for (int j = std::max(0, jY - 4); j <= std::min(dimensiune - 1, jY + 4); ++j) {
                     auto vecin = harti[i][j];
-                    if (vecin && !vecin->estePrada() && !vecin->estePlanta() && vecin->getId() != jucator->getId()) {
+                        if (vecin && !vecin->estePrada() && !vecin->estePlanta() && vecin->getId() != jucator->getId()) {
                         predatorInJur = true;
                     }
                 }
