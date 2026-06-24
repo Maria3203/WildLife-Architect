@@ -301,6 +301,9 @@ void Ecosistem::ruleazaJoc() {
     int invGoodFruit = 0;
     int invBadFruit = 0;
     bool estePrada = false;
+    if (jucator) {
+        estePrada = jucator->estePrada();
+    }
     while (jocInDesfasurare) {
         curataEcranul();
         afiseazaStatusJucator();
